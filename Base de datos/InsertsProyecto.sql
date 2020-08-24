@@ -71,9 +71,10 @@ FOREIGN KEY(id_institucion) REFERENCES institucion(id_institucion)
 
 CREATE TABLE plan_especializacion
 (	
-	id_especializacion INT,
+	
 	id_plan INT,
-	PRIMARY KEY(id_especializacion, id_plan),
+	id_especializacion INT,
+	PRIMARY KEY(id_plan,id_especializacion ),
 	FOREIGN KEY(id_especializacion) REFERENCES especializacion(id_especializacion),
 	FOREIGN KEY(id_plan) REFERENCES plan(id_plan)		
 );
@@ -81,8 +82,9 @@ CREATE TABLE plan_especializacion
 
 CREATE TABLE curso_categoria
 (	
-	id_categoria INT,
+
 	id_curso INT,
+	id_categoria INT,
 	PRIMARY KEY(id_categoria, id_curso),
 	FOREIGN KEY(id_categoria) REFERENCES categoria(id_categoria),
 	FOREIGN KEY(id_curso) REFERENCES curso(id_curso)		
@@ -114,7 +116,7 @@ FOREIGN KEY (id_estudiante) REFERENCES estudiante(id_estudiante),
 FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 );
 
-CREATE TABLE curso_especializacion(
+CREATE TABLE especializacion_curso(
 id_especializacion INT NOT NULL,
 id_curso INT NOT NULL,
 PRIMARY KEY(id_especializacion,id_curso),
@@ -123,7 +125,7 @@ FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 );
 
 
-CREATE TABLE curso_plan(
+CREATE TABLE plan_curso(
 id_plan INT NOT NULL,
 id_curso INT NOT NULL,
 PRIMARY KEY(id_plan,id_curso),
