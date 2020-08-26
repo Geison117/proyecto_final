@@ -1,0 +1,79 @@
+{%extends 'layout.html'%}
+{%block titulo%}
+Añadir Institución
+{%endblock%}
+{%block body%}
+
+
+    <div class="container">
+  <div class="py-5 text-center">
+    <h2>Institución</h2>
+    <p class="lead">Por favor, ingrese los datos institucionales que se le solicitan</p>
+  </div>
+
+  <div class="row">
+  
+    <div class="col-md-10 col-offset-6 center_div">
+      <h4 class="mb-3">Información</h4>
+      <form class="needs-validation" action="/add_insti" method="POST">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Nombre Institucional</label>
+            <input type="text" class="form-control" id="nombre" name="nom" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Pais</label>
+            <select class="custom-select d-block w-100" id="country" required="" name="pais">
+                <option value="" disabled selected>Seleccione..</option>
+                <option>Colombia</option>
+                <option>Canadá</option>
+                <option>USA</option>
+                <option>México</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email">Calificación</label>
+            <input name="cal" type="number" class="form-control" id="email" placeholder="Calificación de 1 a 5, siendo 1 lo más bajo y 5 lo más alto" max="5" min="0">
+          </div>
+
+
+        <div class="mb-3 d-block my-3">
+          <label for="username">Tipo</label>
+            <div class="custom-control custom-radio">
+                <input id="credit" name="tipo" type="radio" class="custom-control-input" checked="" value="Institución Educativa" required="">
+                <label class="custom-control-label" for="credit">Institución Educativa</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="debit" name="tipo" type="radio" class="custom-control-input" value="Empresa" required="">
+                <label class="custom-control-label" for="debit">Empresa</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="paypal" name="tipo" type="radio" class="custom-control-input" value="Sin ánimo de lucro" required="">
+                <label class="custom-control-label" for="paypal">Sin ánimo de lucro</label>
+              </div>
+        </div>
+        
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Agregar O Editar</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">© 2020-2021 CursosDB</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacidad</a></li>
+      <li class="list-inline-item"><a href="#">Terminos</a></li>
+      <li class="list-inline-item"><a href="#">Suporte</a></li>
+    </ul>
+  </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"></script>
+      <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+        <script src="form-validation.js"></script>
+
+
+{%endblock%}

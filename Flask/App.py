@@ -6,8 +6,8 @@ app = Flask(__name__)
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='usuario'
-app.config['MYSQL_PASSWORD']='contrasena'
-app.config['MYSQL_DB']='liga_de_campeones'
+app.config['MYSQL_PASSWORD']='1234'
+app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
 
 #settings
@@ -15,10 +15,25 @@ app.secret_key='mysecretkey'
 
 @app.route('/')
 def Index():
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM contacts')
-    data = cur.fetchall()
-    return render_template('index.html',contacts = data)
+    return render_template('index.html')
+
+@app.route('/add_institucion')
+def add_insti():
+    return render_template('addInstitucion.html')
+
+@app.route('/add_insti', methods=['POST'])
+def added():
+    if request.method == 'POST':
+        nom = request.form['nom']
+        pais = request.form['pais']
+        tipo = request.form['tipo']
+        cal = request.form['cal']
+        cur = mysql.connection.cursor()
+        cur.execute(''' 
+        INSERT INTO institucion (nombre,pais,tipo,calificacion) VALUES (%s, %s, %s,%s)
+        ''', (nom,pais,tipo,cal))
+        mysql.connection.commit()
+        return redirect(url_for('Index'))
 
 @app.route('/add_contact', methods=['POST'])
 def add_contact():
