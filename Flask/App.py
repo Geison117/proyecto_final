@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='usuario'
+app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -17,12 +17,14 @@ app.secret_key='mysecretkey'
 def Index():
     return render_template('index.html')
 
+
+#RUTAS PARA INSTITUCION
 @app.route('/add_institucion')
 def add_insti():
     return render_template('addInstitucion.html')
 
 @app.route('/add_insti', methods=['POST'])
-def added():
+def addedins():
     if request.method == 'POST':
         nom = request.form['nom']
         pais = request.form['pais']
@@ -34,6 +36,71 @@ def added():
         ''', (nom,pais,tipo,cal))
         mysql.connection.commit()
         return redirect(url_for('Index'))
+
+@app.route('/institucion')
+def inshtml():
+    return render_template('institucion.html')
+
+ #RUTAS PARA CURSOS
+
+@app.route('/cursos')
+def curhtml():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM curso')
+    data = cur.fetchall()
+    return render_template('cursos.html',cursos = data)
+    
+@app.route('/add_curso')
+def add_cur():
+    return render_template('addCurso.html')
+
+@app.route('/add_cur', methods=['POST'])
+def addedcur():
+    if request.method == 'POST':
+        institucion= request.form['ins']
+        nombre= request.form['nom']
+        clasest= request.form['ct']
+        clasesp= request.form['cp']
+        calificacion= request.form['cal']
+        cur = mysql.connection.cursor()
+        cur.execute(''' 
+        INSERT INTO curso (id_institucion,nombre,clases_teoricas,clases_practicas,calificacion) VALUES (%s, %s, %s,%s,%s)
+        ''', (institucion,nombre,clasest,clasesp,calificacion))
+        mysql.connection.commit()
+        return redirect(url_for('curhtml'))
+
+#RUTAS PARA ESTUDIANTE
+
+
+@app.route('/estudiante')
+def esthtml():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM estudiante')
+    data = cur.fetchall()
+    return render_template('estudiante.html',estudiantes = data)
+
+@app.route('/add_estudiante')
+def add_est():
+    return render_template('addEstudiante.html')
+
+@app.route('/add_estud', methods=['POST'])
+def addedes():
+    if request.method == 'POST':
+        nombre= request.form['nom']
+        apellido= request.form['ape']
+        usuario= request.form['usu']
+        fecha_nac= request.form['fec']
+        nacionalidad= request.form['nac']
+        plan= request.form['pla']
+        cur = mysql.connection.cursor()
+        cur.execute(''' 
+        INSERT INTO estudiante (nombre,apellido,usuario,fecha_nacimiento,nacionalidad,id_plan) VALUES (%s, %s, %s,%s,%s,%s)
+        ''', (nombre,apellido,usuario,fecha_nac,nacionalidad,plan))
+        mysql.connection.commit()
+        return redirect(url_for('esthtml'))
+
+
+#RUTAS PARA ESPECIALIZACION
 
 @app.route('/add_contact', methods=['POST'])
 def add_contact():

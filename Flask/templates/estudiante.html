@@ -1,0 +1,39 @@
+{%extends 'layout.html'%}
+
+
+{% block body %}
+
+<table>
+    <tr>
+        <td>Nombre</td>
+        <td>Apellido</td>
+        <td>Usuario</td>
+        <td>Fecha de nacimiento</td>
+        <td>Nacionalidad</td>
+        <td>Plan</td>
+
+    </tr>
+
+
+{% for estudiante in estudiantes %}
+<tr>
+    <td>{{estudiante.1}}</td>
+    <td>{{estudiante.2}}</td>
+    <td>{{estudiante.3}}</td>
+    <td>{{estudiante.4}}</td>
+    <td>{{estudiante.5}}</td>
+    <td>{{estudiante.6}}</td>
+
+</tr>
+
+
+{% endfor %}
+
+</table>
+<form action="/add_estudiante">
+    
+    <button type="submit">Inscribir nuevo estudiante</button>
+
+</form>
+
+{% endblock %}

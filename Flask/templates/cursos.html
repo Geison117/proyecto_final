@@ -1,0 +1,37 @@
+{%extends 'layout.html'%}
+
+
+
+
+{% block body %}
+
+<table>
+    <tr>
+        <td>Institucion</td>
+        <td>nombre</td>
+        <td>clases teoricas</td>
+        <td>clases_practicas</td>
+        <td>calificacion</td>
+       
+
+    </tr>
+
+{% for curso in cursos %}
+<tr>
+    <td>{{curso.1}}</td>
+    <td>{{curso.2}}</td>
+    <td>{{curso.3}}</td>
+    <td>{{curso.4}}</td>
+    <td>{{curso.5}}</td>
+    
+
+</tr>
+
+
+{% endfor %}
+
+<form action="/add_curso">
+
+    <button type="submit">Agregar curso</button>
+</form>
+{% endblock %}

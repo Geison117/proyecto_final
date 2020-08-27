@@ -1,46 +1,28 @@
 
     {%extends 'layout.html'%}
     {%block titulo%}
-    Menú
+    Menú Principal
     {%endblock%}
+
+    {% block source %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    {% endblock %}
     {%block body%}
-  
-    {% if messages%}
-    {%for message in messages%}
-    <p>{{message}}</p>
-    {%endfor%}
-    {% endif%}
-    
-    <form action="/add_contact" method="POST">
-        <input type="text" name="fullname" placeholder="fullname">
-        <input type="text" name="phone" placeholder="phone">
-        <input type="text" name="email" placeholder="email">
-
-        <button type="submit"> SAVE</button>
-    </form>
-
-    <table>
-        <thead>
-            <tr>
-                <td>Fullname</td>
-                <td>Phone</td>
-                <td>Email</td>
-                <td>Operations</td>
-            </tr>
-        </thead>
-        <tbody>
-            {%for contact in contacts%}
-            <tr>
-                <td>{{ contact.1}}</td>
-                <td>{{ contact.2}}</td>
-                <td>{{ contact.3}}</td>
-                <td>
-                    <a href="/edit/{{contact.0}}">Edit</a>
-                    <a href="/delete/{{contact.0}}">Delete</a>
-                </td>
-            </tr>
-            {% endfor%}
-        </tbody>
-    </table>
-{%endblock%}
+    <nav class="menu">
+        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+        <label class="menu-open-button" for="menu-open">
+         <span class="lines line-1"></span>
+         <span class="lines line-2"></span>
+         <span class="lines line-3"></span>
+       </label>
+     
+        <a href="/estudiante" class="menu-item blue"> E<i class="fa fa-anchor"></i> </a>
+        <a href="/cursos" class="menu-item green"> C<i class="fa fa-coffee"></i> </a>
+        <a href="/institucion" class="menu-item red"> I<i class="fa fa-heart"></i> </a>
+        <a href="#" class="menu-item purple"> <i class="fa fa-microphone"></i> </a>
+        <a href="#" class="menu-item orange"> <i class="fa fa-star"></i> </a>
+        <a href="#" class="menu-item lightblue"> <i class="fa fa-diamond"></i> </a>
+     </nav>
+    {%endblock%}
     

@@ -1,10 +1,20 @@
-{%extends 'layout.html'%}}
-{%block body%}
-    <form action="/update/{{contact.0}}" method="POST">
-        <input type="text" name="fullname" placeholder="fullname" value="{{contact.1}}">
-        <input type="text" name="phone" placeholder="phone" value="{{contact.2}}">
-        <input type="text" name="email" placeholder="email" value="{{contact.3}}">
+{%extends 'layout.html'%}
 
-        <button type="submit"> SAVE</button>
+
+{%block body%}
+    <form action="/add_estud" method="POST">
+    
+    <input type="text" maxlength="30" name="nom">
+    <input type="text" maxlength="30" name="ape">
+    <input type="text" maxlength="30" name="usu">
+    <input type="date" name="fec">
+    <input type="text" maxlength="20" name="nac">
+    <select name="pla">
+        <option value="1">Gratis</option>
+        <option value="2">Premium</option>
+    </select>
+
+
+    <button type="submit">Agregar Estudiante</button>
     </form>
     {%endblock%}
