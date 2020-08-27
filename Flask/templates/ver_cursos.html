@@ -1,0 +1,30 @@
+{%extends 'layout.html'%}
+
+{% block body %}
+
+{%  if cursos |length >0 : %}
+    <table>
+    {% for curso in cursos %}
+        <tr>
+        <td>
+            {{curso.2}}
+        </td>
+        <td>
+            {{curso.3}}
+        </td>
+        <td>
+            {{curso.4}}
+        </td>
+        <td>
+            {{curso.5}}
+        </td>
+        </tr>
+
+    {% endfor %}
+    </table>
+{% else %}
+    <h1>Este estudiante no tiene cursos matriculados</h1>
+{% endif %}
+
+<button>Incribir nuevo curso</button>
+{% endblock %}

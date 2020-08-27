@@ -77,7 +77,9 @@ def esthtml():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM estudiante')
     data = cur.fetchall()
-    return render_template('estudiante.html',estudiantes = data)
+    cur.execute('SELECT nombre FROM plan')
+    nombrePlan=cur.fetchall()
+    return render_template('estudiante.html',estudiantes = data, plan = nombrePlan)
 
 @app.route('/add_estudiante')
 def add_est():
@@ -99,6 +101,17 @@ def addedes():
         mysql.connection.commit()
         return redirect(url_for('esthtml'))
 
+
+
+@app.route('/ver_cursos/<id>')
+def ver_cursos(id):
+    cur = mysql.connection.cursor()
+    cur.execute('	SELECT c.* FROM estudiante_curso ec, curso c, estudiante e'\
+	' WHERE ec.id_estudiante=e.id_estudiante'\
+	' AND ec.id_curso=c.id_curso'\
+	' AND e.id_estudiante =%s;',(id))
+    cursosEstudiante = cur.fetchall()
+    return render_template('ver_cursos.html', cursos = cursosEstudiante)
 
 #RUTAS PARA ESPECIALIZACION
 
@@ -151,4 +164,4 @@ def delete_contact(id):
     return redirect(url_for('Index'))
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    app.run(port=4000, debug=True)

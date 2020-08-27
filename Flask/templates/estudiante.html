@@ -12,6 +12,7 @@
         <td>Nacionalidad</td>
         <td>Plan</td>
 
+        <td colspan="4">Opciones</td>
     </tr>
 
 
@@ -22,8 +23,17 @@
     <td>{{estudiante.3}}</td>
     <td>{{estudiante.4}}</td>
     <td>{{estudiante.5}}</td>
-    <td>{{estudiante.6}}</td>
 
+    {% if estudiante.6 == 1: %}
+        <td>{{plan.0.0}}</td>
+    {% else %}
+        <td>{{plan.1.0}}</td>
+    {% endif %}
+
+    <td> <button>Editar</button></td>
+    <td> <button>Cancelar suscripción</button></td>
+    <td><a href="/ver_cursos/{{estudiante.0}}"> <button> Ver cursos </button></a></td>
+    <td> <a href="/ver_especializaciones/{{estudiante.0}}"> <button> Ver especializaciones </button></a></td>
 </tr>
 
 
