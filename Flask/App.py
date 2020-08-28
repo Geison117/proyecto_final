@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='usuario'
+app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -70,12 +70,25 @@ def updateins(id):
 @app.route('/elim_ins/<id>')
 def elimins(id):
     cur = mysql.connection.cursor()
+
+    cur.execute('''
+    DELETE FROM estudiante_curso WHERE
+	id_curso IN (SELECT id_curso FROM curso
+    WHERE id_institucion = %s)''',(id))
+    				
+    cur.execute('''
+    DELETE FROM estudiante_especializacion WHERE
+	id_especializacion IN (SELECT id_especializacion FROM especializacion
+    WHERE id_institucion = %s)''',(id))
+
     cur.execute('''
     DELETE FROM curso
     WHERE id_institucion = %s''',(id))
+
     cur.execute('''
     DELETE FROM especializacion
     WHERE id_institucion = %s''',(id))
+
     cur.execute('''
     DELETE FROM institucion
     WHERE id_institucion = %s''',(id))
@@ -142,7 +155,48 @@ def addedes():
         mysql.connection.commit()
         return redirect(url_for('esthtml'))
 
+@app.route('/elim_est/<id>')
+def elimest(id):
+    cur = mysql.connection.cursor()
+    cur.execute(
+    '''DELETE FROM estudiante_curso 
+     WHERE id_estudiante=%s''',(id))
 
+
+    cur.execute('''DELETE FROM estudiante_especializacion 
+    WHERE id_estudiante=%s''',(id))
+
+    cur.execute('''DELETE FROM estudiante 
+     WHERE id_estudiante=%s''',(id))
+    
+    mysql.connection.commit()
+
+    return redirect(url_for('esthtml'))
+
+@app.route('/update_estudiante/<id>')
+def upest(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT * FROM estudiante
+    WHERE id_estudiante =%s''',(id))
+    datosEstudiante = cur.fetchall()
+    
+    return render_template('editEstudiante.html', estudiante = datosEstudiante)
+
+@app.route('/update_estud/<id>', methods=['POST'])
+def updatees(id):
+    if request.method == 'POST':
+        nombre= request.form['nom']
+        apellido= request.form['ape']
+        usuario= request.form['usu']
+        fecha_nac= request.form['fec']
+        nacionalidad= request.form['nac']
+        plan= request.form['pla']
+        cur = mysql.connection.cursor()
+        cur.execute(''' 
+        UPDATE estudiante SET nombre=%s,apellido=%s,usuario=%s,fecha_nacimiento=%s,nacionalidad=%s,id_plan=%s
+        WHERE id_estudiante = %s''', (nombre,apellido,usuario,fecha_nac,nacionalidad,plan,id))
+        mysql.connection.commit()
+        return redirect(url_for('esthtml'))
 
 @app.route('/ver_cursos/<id>')
 def ver_cursos(id):
@@ -152,7 +206,48 @@ def ver_cursos(id):
 	' AND ec.id_curso=c.id_curso'\
 	' AND e.id_estudiante =%s;',(id))
     cursosEstudiante = cur.fetchall()
-    return render_template('ver_cursos.html', cursos = cursosEstudiante)
+    cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
+    estudiante = cur.fetchall()
+    return render_template('ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
+
+
+@app.route('/ver_especializaciones/<id>')
+def ver_especializaciones(id):
+    cur = mysql.connection.cursor()
+    cur.execute('	SELECT es.* FROM estudiante_especializacion ee, especializacion es, estudiante e'\
+	' WHERE ee.id_estudiante=e.id_estudiante'\
+	' AND ee.id_especializacion=es.id_especializacion'\
+	' AND e.id_estudiante =%s;',(id))
+    especializacionEstudiante = cur.fetchall()
+    return render_template('ver_especializaciones.html', especializaciones = especializacionEstudiante)
+
+@app.route('/inscribir_curso/<id>')
+def inscur(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT id_plan FROM estudiante WHERE 
+    id_estudiante = %s''',(id))
+    idplan = cur.fetchall()
+    idplan =idplan[0][0]
+    idplan = str(idplan)
+    
+    cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
+    estudiante = cur.fetchall()
+    cur.execute('''SELECT c.* FROM plan_curso pc,curso c, estudiante e
+	WHERE pc.id_plan=e.id_plan
+	AND pc.id_curso=c.id_curso
+	AND e.id_plan = %s''',(idplan))
+    cursos = cur.fetchall()
+    return render_template('InscripcionCurso.html', cursos = cursos, estudiante=estudiante)
+
+@app.route('/ins_cur/<ide>/<idc>')
+def ins_cur(ide,idc):
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT INTO estudiante_curso (id_estudiante,id_curso,fec_fin,fec_inicio,Aprobado)
+     VALUES (%s,%s,'2030-08-25',DATE(NOW()),0)  ''',(ide,idc))
+    mysql.connection.commit()
+    
+    return redirect(url_for('ver_cursos',id=ide))
+
 
 #RUTAS PARA ESPECIALIZACION
 

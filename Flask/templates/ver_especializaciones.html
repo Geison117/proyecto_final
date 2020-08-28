@@ -1,0 +1,32 @@
+{%extends 'layout.html'%}
+
+{% block body %}
+
+
+{%  if especializaciones |length >0 : %}
+<table>
+{% for especializacion in especializaciones %}
+ <tr>
+     <td>
+         {{especializacion.1}}
+     </td>
+     <td>
+        {{especializacion.2}}
+    </td>
+    <td>
+        {{especializacion.3}}
+    </td>
+    <td>
+        {{especializacion.4}}
+    </td>
+ </tr>
+
+
+
+{% endfor %}
+</table>
+{% else %}
+<h1>Este estudiante no está cursando ninguna especializacion</h1>
+{% endif %}
+
+{% endblock %}

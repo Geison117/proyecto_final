@@ -1,0 +1,35 @@
+{%extends 'layout.html'%}
+
+{% block body %}
+<h1>hola</h1>
+<table>
+{% for curso in cursos %}
+
+<tr>
+    <td>
+        {{curso.1}}
+    </td>
+    <td>
+        {{curso.2}}
+    </td>
+    <td>
+        {{curso.3}}
+    </td>
+    <td>
+        {{curso.4}}
+    </td>
+    <td>
+        {{curso.5}}
+    </td>
+    <td>
+        <a href="/ins_cur/{{estudiante[0][0]}}/{{curso.0}}"><button>Inscribir</button></a>
+    </td>
+</tr>
+
+
+
+
+{% endfor %}
+
+</table>
+{% endblock %}

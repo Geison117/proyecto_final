@@ -1,0 +1,22 @@
+{%extends 'layout.html'%}
+
+
+{% block body %}
+<form action="/update_estud/{{estudiante[0][0]}}" method="POST">
+    
+    <input type="text" maxlength="30" value="{{estudiante[0][1]}}" name="nom">
+    <input type="text" maxlength="30" value="{{estudiante[0][2]}}" name="ape">
+    <input type="text" maxlength="30" value="{{estudiante[0][3]}}" name="usu">
+    <input type="date" value="{{estudiante[0][4]}}" name="fec">
+    <input type="text" maxlength="20" value="{{estudiante[0][5]}}" name="nac">
+    <select  name="pla">
+        <option value="1">Gratis</option>
+        <option value="2">Premium</option>
+    </select>
+
+
+    <button type="submit">Editar Estudiante</button>
+    </form>
+
+
+{% endblock %}
