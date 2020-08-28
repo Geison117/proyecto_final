@@ -1,6 +1,6 @@
 {%extends 'layout.html'%}
 {%block titulo%}
-Añadir Institución
+Editar Institución
 {%endblock%}
 {%block body%}
 
@@ -8,18 +8,18 @@ Añadir Institución
     <div class="container">
   <div class="py-5 text-center">
     <h2>Institución</h2>
-    <p class="lead">Por favor, ingrese los datos institucionales que se le solicitan</p>
+    <p class="lead">Edite la Información necesaria</p>
   </div>
 
   <div class="row">
   
     <div class="col-md-10 col-offset-6 center_div">
       <h4 class="mb-3">Información</h4>
-      <form class="needs-validation" action="/add_insti" method="POST">
+      <form class="needs-validation" action="/update_ins/{{institucion.0}}" method="POST">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">Nombre Institucional</label>
-            <input type="text" class="form-control" id="nombre" name="nom" required>
+            <input type="text" class="form-control" id="nombre" name="nom" value="{{institucion.1}}" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Pais</label>
@@ -35,7 +35,7 @@ Añadir Institución
 
         <div class="mb-3">
             <label for="email">Calificación</label>
-            <input name="cal" type="number" step="0.1" class="form-control" id="email" placeholder="Calificación de 1 a 5, siendo 1 lo más bajo y 5 lo más alto" max="5" min="0">
+            <input value="{{institucion.4}}" name="cal" type="number" step="0.1" class="form-control" id="email" placeholder="Calificación de 1 a 5, siendo 1 lo más bajo y 5 lo más alto" max="5" min="0">
           </div>
 
 
@@ -56,7 +56,7 @@ Añadir Institución
         </div>
         
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Inscribir</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Editar</button>
       </form>
     </div>
   </div>
@@ -70,6 +70,10 @@ Añadir Institución
     </ul>
   </footer>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"></script>
+      <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+        <script src="form-validation.js"></script>
 
 
 {%endblock%}

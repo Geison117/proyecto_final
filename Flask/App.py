@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
+app.config['MYSQL_USER']='usuario'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -35,12 +35,53 @@ def addedins():
         INSERT INTO institucion (nombre,pais,tipo,calificacion) VALUES (%s, %s, %s,%s)
         ''', (nom,pais,tipo,cal))
         mysql.connection.commit()
-        return redirect(url_for('Index'))
+        return redirect(url_for('insti'))
 
 @app.route('/institucion')
-def inshtml():
-    return render_template('institucion.html')
+def insti():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM institucion')
+    ins = cur.fetchall()
+    return render_template('institucion.html',instituciones = ins)
 
+@app.route('/edit_ins/<id>')
+def editins(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM institucion WHERE id_institucion = %s',(id))
+    ins = cur.fetchall()
+    return render_template('editinstitucion.html', institucion = ins[0])
+
+@app.route('/update_ins/<id>', methods = ['POST'])
+def updateins(id):
+    if request.method == 'POST':
+        nom = request.form['nom']
+        pais = request.form['pais']
+        tipo = request.form['tipo']
+        cal = request.form['cal']
+        cur = mysql.connection.cursor()
+        cur.execute('''
+        UPDATE institucion
+        SET nombre = %s, pais = %s, tipo = %s, calificacion = %s
+        WHERE id_institucion = %s
+        ''',((nom,pais,tipo,cal,id)))
+        mysql.connection.commit()
+    return redirect(url_for('insti'))
+
+@app.route('/elim_ins/<id>')
+def elimins(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''
+    DELETE FROM curso
+    WHERE id_institucion = %s''',(id))
+    cur.execute('''
+    DELETE FROM especializacion
+    WHERE id_institucion = %s''',(id))
+    cur.execute('''
+    DELETE FROM institucion
+    WHERE id_institucion = %s''',(id))
+    mysql.connection.commit()
+    return redirect(url_for('insti'))
+    
  #RUTAS PARA CURSOS
 
 @app.route('/cursos')
@@ -164,4 +205,4 @@ def delete_contact(id):
     return redirect(url_for('Index'))
 
 if __name__ == '__main__':
-    app.run(port=4000, debug=True)
+    app.run(port=3800, debug=True)

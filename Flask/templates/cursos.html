@@ -1,37 +1,30 @@
 {%extends 'layout.html'%}
 
 
-
-
 {% block body %}
 
-<table>
+<table class="table table-hover">
     <tr>
-        <td>Institucion</td>
-        <td>nombre</td>
-        <td>clases teoricas</td>
-        <td>clases_practicas</td>
-        <td>calificacion</td>
+        <th>Institucion</th>
+        <th>nombre</th>
+        <th>clases teoricas</th>
+        <th>clases_practicas</th>
+        <th>calificacion</th>
        
-
     </tr>
-
 {% for curso in cursos %}
-<tr>
-    <td>{{curso.1}}</td>
-    <td>{{curso.2}}</td>
-    <td>{{curso.3}}</td>
-    <td>{{curso.4}}</td>
-    <td>{{curso.5}}</td>
-    
-
-</tr>
-
-
+    <tr>
+      <td>{{curso.1}}</td>
+        <td>{{curso.2}}</td>
+        <td>{{curso.3}}</td>
+        <td>{{curso.4}}</td>
+        <td>{{curso.5}}</td>    
+    </tr>
+</table>
 {% endfor %}
 
-<form action="/add_curso">
-
-    <button type="submit">Agregar curso</button>
-</form>
+<div class="row">
+<a href="/add_curso" class="btn btn-primary">Agregar curso</a>
+<a href="/" class="btn btn-outline-primary">Volver</a>
+</div>
 {% endblock %}
