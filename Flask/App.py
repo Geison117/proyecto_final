@@ -133,11 +133,11 @@ def esthtml():
     data = cur.fetchall()
     cur.execute('SELECT nombre FROM plan')
     nombrePlan=cur.fetchall()
-    return render_template('estudiante.html',estudiantes = data, plan = nombrePlan)
+    return render_template('/estudiante/estudiante.html',estudiantes = data, plan = nombrePlan)
 
 @app.route('/add_estudiante')
 def add_est():
-    return render_template('addEstudiante.html')
+    return render_template('/estudiante/addEstudiante.html')
 
 @app.route('/add_estud', methods=['POST'])
 def addedes():
@@ -180,7 +180,7 @@ def upest(id):
     WHERE id_estudiante =%s''',(id))
     datosEstudiante = cur.fetchall()
     
-    return render_template('editEstudiante.html', estudiante = datosEstudiante)
+    return render_template('/estudiante/editEstudiante.html', estudiante = datosEstudiante)
 
 @app.route('/update_estud/<id>', methods=['POST'])
 def updatees(id):
@@ -208,7 +208,7 @@ def ver_cursos(id):
     cursosEstudiante = cur.fetchall()
     cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
-    return render_template('ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
+    return render_template('/estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
 
 
 @app.route('/ver_especializaciones/<id>')
@@ -221,7 +221,7 @@ def ver_especializaciones(id):
     especializacionEstudiante = cur.fetchall()
     cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
-    return render_template('ver_especializaciones.html', especializaciones = especializacionEstudiante, estudiante=estudiante)
+    return render_template('/estudiante/ver_especializaciones.html', especializaciones = especializacionEstudiante, estudiante=estudiante)
 
 @app.route('/inscribir_curso/<id>')
 def inscur(id):
@@ -234,12 +234,14 @@ def inscur(id):
     
     cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
     estudiante = cur.fetchall()
-    cur.execute('''SELECT c.* FROM plan_curso pc,curso c, estudiante e
-	WHERE pc.id_plan=e.id_plan
-	AND pc.id_curso=c.id_curso
-	AND e.id_plan = %s''',(idplan))
+    cur.execute('''SELECT c.* FROM plan_curso pc,curso c
+	WHERE pc.id_curso=c.id_curso
+	AND pc.id_plan = %s
+	AND c.id_curso NOT IN 
+	(SELECT id_curso FROM estudiante_curso
+	WHERE id_estudiante = %s)''',(idplan,id))
     cursos = cur.fetchall()
-    return render_template('InscripcionCurso.html', cursos = cursos, estudiante=estudiante)
+    return render_template('/estudiante/inscripcionCurso.html', cursos = cursos, estudiante=estudiante)
 
 @app.route('/ins_cur/<ide>/<idc>')
 def ins_cur(ide,idc):
@@ -262,12 +264,14 @@ def insesp(id):
     
     cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
     estudiante = cur.fetchall()
-    cur.execute('''SELECT es.* FROM plan_especializacion pe,especializacion es, estudiante e
-	WHERE pe.id_plan=e.id_plan
-	AND pe.id_especializacion=es.id_especializacion
-	AND e.id_plan = %s''',(idplan))
+    cur.execute('''	SELECT es.* FROM plan_especializacion pc,especializacion es
+	WHERE pc.id_especializacion=es.id_especializacion
+	AND pc.id_plan = %s
+	AND es.id_especializacion NOT IN 
+	(SELECT id_especializacion FROM estudiante_especializacion
+	WHERE id_estudiante = %s)''',(idplan,id))
     especializaciones = cur.fetchall()
-    return render_template('inscripcionEspecializacion.html', especializaciones = especializaciones, estudiante=estudiante)
+    return render_template('/estudiante/inscripcionEspecializacion.html', especializaciones = especializaciones, estudiante=estudiante)
 
 @app.route('/ins_esp/<ide>/<ides>')
 def ins_esp(ide,ides):
