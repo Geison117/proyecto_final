@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Hola</h1>
+
+
+{%  if especializaciones |length >0 : %}
+<table>
+    {% for especializacion in especializaciones %}
+    
+    <tr>
+        <td>
+            {{especializacion.1}}
+        </td>
+        <td>
+            {{especializacion.2}}
+        </td>
+        <td>
+            {{especializacion.3}}
+        </td>
+        <td>
+            {{especializacion.4}}
+        </td>
+        <td>
+            <a href="/ins_esp/{{estudiante[0][0]}}/{{especializacion.0}}"><button>Inscribir</button></a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+{% else %}
+
+<h1>No hay especializaciones disponibles</h1>
+
+{% endif %}
+
+</table>
+{% endblock %}

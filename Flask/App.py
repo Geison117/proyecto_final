@@ -219,7 +219,9 @@ def ver_especializaciones(id):
 	' AND ee.id_especializacion=es.id_especializacion'\
 	' AND e.id_estudiante =%s;',(id))
     especializacionEstudiante = cur.fetchall()
-    return render_template('ver_especializaciones.html', especializaciones = especializacionEstudiante)
+    cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
+    estudiante = cur.fetchall()
+    return render_template('ver_especializaciones.html', especializaciones = especializacionEstudiante, estudiante=estudiante)
 
 @app.route('/inscribir_curso/<id>')
 def inscur(id):
@@ -247,6 +249,34 @@ def ins_cur(ide,idc):
     mysql.connection.commit()
     
     return redirect(url_for('ver_cursos',id=ide))
+
+
+@app.route('/inscribir_especializacion/<id>')
+def insesp(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT id_plan FROM estudiante WHERE 
+    id_estudiante = %s''',(id))
+    idplan = cur.fetchall()
+    idplan =idplan[0][0]
+    idplan = str(idplan)
+    
+    cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
+    estudiante = cur.fetchall()
+    cur.execute('''SELECT es.* FROM plan_especializacion pe,especializacion es, estudiante e
+	WHERE pe.id_plan=e.id_plan
+	AND pe.id_especializacion=es.id_especializacion
+	AND e.id_plan = %s''',(idplan))
+    especializaciones = cur.fetchall()
+    return render_template('inscripcionEspecializacion.html', especializaciones = especializaciones, estudiante=estudiante)
+
+@app.route('/ins_esp/<ide>/<ides>')
+def ins_esp(ide,ides):
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT INTO estudiante_especializacion (id_estudiante,id_especializacion,estado)
+     VALUES (%s,%s,'En curso')  ''',(ide,ides))
+    mysql.connection.commit()
+    
+    return redirect(url_for('ver_especializaciones',id=ide))
 
 
 #RUTAS PARA ESPECIALIZACION
