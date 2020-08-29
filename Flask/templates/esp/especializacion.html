@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+
+
+{% block body %}
+
+<table class="table table-hover">
+    <tr>
+        <th>Institucion</th>
+        <th>Nombre</th>
+        <th>Nivel</th>
+        <th>calificacion</th>
+        <td colspan="4">Opciones</td>
+       
+    </tr>
+{% for esp in especializaciones %}
+    <tr>
+      <td>{{esp.0}}</td>
+        <td>{{esp.2}}</td>
+        <td>{{esp.4}}</td>
+        <td>{{esp.3}}</td> 
+        <td> <a href="/edit_esp/{{esp.1}}">EDITAR</a> 
+            <a class="confirm">ELIMINAR</a> 
+            <a href="/ver_cur/{{esp.1}}">VER CURSOS</a>
+        </td> 
+    </tr>
+{% endfor %}
+</table>
+
+
+<div class="row">
+<a href="/add_esp" class="btn btn-primary">Agregar especializacion</a>
+<a href="/" class="btn btn-outline-primary">Volver</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/esp.js') }}"></script>
+{% endblock %}

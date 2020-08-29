@@ -1,0 +1,52 @@
+{%extends 'layout.html'%}
+{% block body %}
+<div class="container">
+    <div class="py-5 text-center">
+      <h2>Especialización</h2>
+      <p class="lead">
+            Edite los campos necesarios de la especialización, si desea cambiar la 
+            institución cree la especialización nuevamente y eliminé la anterior.
+      </p>
+    </div>
+  
+    <div class="row">
+    
+      <div class="col-md-10 col-offset-6 center_div">
+        <h4 class="mb-3">Edición</h4>
+        <form class="needs-validation" action="/update_esp/{{esp.0}}" method="POST">
+
+            <div class="mb-3">
+              <label for="firstName">Nombre de la especialización</label>
+              <input value="{{esp.1}}" type="text" class="form-control" id="nombre" name="nom" required>
+            </div>
+
+        
+          <div class="mb-3">
+              <label for="email">Nivel</label>
+              <input value="{{esp.3}}" name="level" type="number" class="form-control" id="email" min="0">
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Calificación</label>
+                <input value="{{esp.2}}" name="cal" type="number" step="0.1" class="form-control" id="email" min="0" max="5">  
+          </div>
+
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" id="btn" type="submit">Editar</button>
+        </form>
+      </div>
+    </div>
+  
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2020-2021 CursosDB</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacidad</a></li>
+        <li class="list-inline-item"><a href="#">Terminos</a></li>
+        <li class="list-inline-item"><a href="#">Suporte</a></li>
+      </ul>
+    </footer>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+crossorigin="anonymous"></script>
+{% endblock %}

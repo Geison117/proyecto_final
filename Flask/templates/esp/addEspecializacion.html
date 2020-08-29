@@ -2,32 +2,26 @@
 {% block body %}
 <div class="container">
     <div class="py-5 text-center">
-      <h2>Curso</h2>
-      <p class="lead">Por favor, ingrese los datos necesarios para publicar un curso</p>
+      <h2>Especialización</h2>
+      <p class="lead">Por favor, ingrese los datos necesarios para publicar una especialización</p>
     </div>
   
     <div class="row">
     
       <div class="col-md-10 col-offset-6 center_div">
         <h4 class="mb-3">Inscripción </h4>
-        <form class="needs-validation" action="/add_cur" method="POST">
+        <form class="needs-validation" action="/add_especial" method="POST">
 
             <div class="mb-3">
-              <label for="firstName">Nombre del curso</label>
+              <label for="firstName">Nombre de la especialización</label>
               <input type="text" class="form-control" id="nombre" name="nom" required>
             </div>
 
-         <div class="row">
-          <div class="col-md-6 mb-3">
-              <label for="email">Número de horas teóricas</label>
-              <input name="ct" type="number" class="form-control" id="email" min="0">
+        
+          <div class="mb-3">
+              <label for="email">Nivel</label>
+              <input name="level" type="number" class="form-control" id="email" min="0">
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="email">Número de horas prácticas</label>
-                <input name="cp" type="number"  class="form-control" id="email"  min="0">
-              </div>
-        </div>
-
 
             <div class="mb-3">
                 <label for="email">Calificación</label>
@@ -54,37 +48,6 @@
                       </select>
                     </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4 mb-3">
-                         <label for="username">Categoria 1</label>
-                         <select class="custom-select d-block w-100" id="country" required="" name="cat1">
-                          <option value="" disabled selected>Seleccione..</option>
-                          {%for categoria in categorias %}
-                              <option value="{{categoria.0}}">{{categoria.1}}</option>
-                          {%endfor%}
-                        </select>
-                      </div>
-                      <div class="col-md-4 mb-3">
-                        <label for="username">Categoria 2</label>
-                        <select class="custom-select d-block w-100" id="country" required="" name="cat2">
-                        <option value="0">Ninguna</option> 
-                        {%for categoria in categorias %}
-                             <option value="{{categoria.0}}">{{categoria.1}}</option>
-                         {%endfor%}
-                        </select>
-                     </div>
-                     <div class="col-md-4 mb-3">
-                      <label for="username">Categoria 3</label>
-                      <select class="custom-select d-block w-100" id="country" required="" name="cat3">
-                      <option value="0">Ninguna</option> 
-                      {%for categoria in categorias %}
-                           <option value="{{categoria.0}}">{{categoria.1}}</option>
-                       {%endfor%}
-                      </select>
-                   </div>
-                    </div>
-  
-             
           <hr class="mb-4">
           <button class="btn btn-primary btn-lg btn-block" id="btn" type="submit">Inscribir</button>
         </form>

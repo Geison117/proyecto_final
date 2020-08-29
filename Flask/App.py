@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
+app.config['MYSQL_USER']='usuario'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -134,31 +134,72 @@ def addedcur():
         mysql.connection.commit()
         cur.execute('SELECT MAX(id_curso) FROM curso')
         id = cur.fetchall()
-        print(id[0])
-        print(plan)
-        print(cat1)
-        print(cat2)
-        print(cat3)
-        if int(plan) == 2:
+        if int(plan) == 1:
             cur.execute('INSERT INTO plan_curso VALUES (%s,%s),(%s,%s)',(1,id[0],2,id[0]))
         else:
-            cur.execute('INSERT INTO plan_curso VALUES (%s,%s)',(1,id[0]))
+            cur.execute('INSERT INTO plan_curso VALUES (%s,%s)',(2,id[0]))
         mysql.connection.commit()
-        if int(cat2) > 0 and int(cat3) > 0:
-            if int(cat1) != int(cat2) and int(cat1) != int(cat2):
-                cur.execute('INSERT INTO curso_categoria(id_curso,id_categoria) VALUES (%s,%s),(%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2,id[0],cat3)) 
+        if int(cat2) > 0 and int(cat3) > 0 and int(cat1) != int(cat3) and int(cat1) != int(cat2) and int(cat2) != int(cat3) :
+            cur.execute('INSERT INTO curso_categoria(id_curso,id_categoria) VALUES (%s,%s),(%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2,id[0],cat3)) 
         else:
-            if int(cat2) > 0:
-                if cat1 != cat2: 
-                    cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2)) 
+            if int(cat2) > 0 and cat1 != cat2:             
+                cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2)) 
             else:
-                if int(cat3) > 0:
-                    if cat1 != cat3:
-                        cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat3))
+                if int(cat3) > 0 and cat1 != cat3:
+                    cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat3))
                 else:
                     cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s)',(id[0],cat1))
         mysql.connection.commit()
-        return redirect(url_for('cursos/curhtml'))
+        return redirect(url_for('curhtml'))
+
+@app.route('/elim_cur/<id>')
+def elimcur(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''
+    DELETE FROM curso_categoria 
+    WHERE id_curso = %s
+    ''',(id))
+    cur.execute('''
+    DELETE FROM plan_curso 
+    WHERE id_curso = %s
+    ''',(id))
+    cur.execute('''
+    DELETE FROM estudiante_curso 
+    WHERE id_curso = %s
+    ''',(id))
+    cur.execute('''
+    DELETE FROM especializacion_curso 
+    WHERE id_curso = %s
+    ''',(id))
+    cur.execute('''
+    DELETE FROM curso 
+    WHERE id_curso = %s
+    ''',(id))
+    mysql.connection.commit()
+    return redirect(url_for('curhtml'))
+
+@app.route('/edit_cur/<id>')
+def editcur(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM curso WHERE id_curso = %s',(id))
+    curso = cur.fetchall()
+    return render_template('cursos/editCurso.html', curso = curso[0])
+
+@app.route('/update_cur/<id>', methods = ['POST'])
+def updatecur(id):
+    if request.method == 'POST': 
+        nombre= request.form['nom']
+        clasest= request.form['ct']
+        clasesp= request.form['cp']
+        calificacion= request.form['cal']
+        cur = mysql.connection.cursor()
+        cur.execute('''
+        UPDATE curso
+        SET nombre = %s, clases_teoricas = %s, clases_practicas = %s, calificacion = %s
+        WHERE id_curso = %s
+        ''', (nombre,clasest,clasesp,calificacion,id))
+        mysql.connection.commit()
+        return redirect(url_for('curhtml'))
 
 #RUTAS PARA ESTUDIANTE
 
@@ -268,7 +309,6 @@ def inscur(id):
     idplan = cur.fetchall()
     idplan =idplan[0][0]
     idplan = str(idplan)
-    
     cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
     estudiante = cur.fetchall()
     cur.execute('''SELECT c.* FROM plan_curso pc,curso c
@@ -322,53 +362,119 @@ def ins_esp(ide,ides):
 
 #RUTAS PARA ESPECIALIZACION
 
-@app.route('/add_contact', methods=['POST'])
-def add_contact():
+@app.route('/especializacion')
+def esp():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT i.nombre,e.* FROM especializacion e join institucion i on i.id_institucion=e.id_institucion')
+    info = cur.fetchall()
+    return render_template('esp/especializacion.html', especializaciones = info)
+
+@app.route('/add_esp')
+def addesp():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM institucion')
+    ins = cur.fetchall()
+    cur.execute('SELECT * FROM plan')
+    pl = cur.fetchall()
+    return render_template('esp/addEspecializacion.html', instituciones = ins, planes = pl)
+    
+@app.route('/add_especial', methods = ['POST'])
+def addespecial():
     if request.method == 'POST':
-        fullname = request.form['fullname']
-        phone = request.form['phone']
-        email = request.form['email']
-        cur=mysql.connection.cursor()
-        cur.execute('INSERT INTO contacts (fullname, phone, email) VALUES (%s, %s, %s)', (fullname,phone,email))
+        nom = request.form['nom']
+        level = request.form['level']
+        cal = request.form['cal']
+        ins = request.form['ins']
+        plan = request.form['plan']
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO especializacion(nombre,nivel,calificacion,id_institucion) VALUES (%s,%s,%s,%s)',(nom,level,cal,ins))
         mysql.connection.commit()
-        flash('Contacto agregado con exito')
-
-
-        return redirect(url_for('Index'))
-
-
-@app.route('/edit/<id>')
-def get_contact(id):
-    cur=mysql.connection.cursor()
-    cur.execute('SELECT * FROM contacts WHERE id=%s',(id))
-    data = cur.fetchall()
-    return render_template('edit-contact.html', contact=data[0])
-
-@app.route('/update/<id>', methods = ['POST'])
-def update_contact(id):
-    if request.method == 'POST':
-        fullname = request.form['fullname']
-        phone = request.form['phone']
-        email = request.form['email']
-        cur=mysql.connection.cursor()
-        cur.execute("""
-            UPDATE contacts 
-            SET fullname = %s,
-                email = %s,
-                phone = %s
-            WHERE id = %s    
-        """, (fullname,email,phone,id))
+        cur.execute('SELECT MAX(id_especializacion) FROM especializacion')
+        id = cur.fetchall()
+        if int(plan) == 1:
+            cur.execute('INSERT INTO plan_especializacion VALUES (%s,%s),(%s,%s)',(1,id[0],2,id[0]))
+        else:
+            cur.execute('INSERT INTO plan_especializacion VALUES (%s,%s)',(2,id[0]))
         mysql.connection.commit()
-        flash('Contacto actualizado')
-        return redirect(url_for('Index'))
+        return redirect(url_for('esp')) 
 
-@app.route('/delete/<string:id>')
-def delete_contact(id):
-    cur=mysql.connection.cursor()
-    cur.execute('DELETE FROM contacts WHERE id = {0}'.format(id))
+@app.route('/edit_esp/<id>')
+def editesp(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM especializacion WHERE id_especializacion = %s',(id))
+    esp = cur.fetchall()
+    return render_template('esp/editEsp.html', esp = esp[0])    
+
+@app.route('/update_esp/<id>',methods = ['POST'])
+def updateesp(id):
+    if  request.method == 'POST':
+        nom = request.form['nom']
+        level = request.form['level']
+        cal = request.form['cal']
+        cur = mysql.connection.cursor()
+        cur.execute('''
+        UPDATE especializacion
+        SET nombre = %s, calificacion = %s, nivel = %s
+        WHERE id_especializacion = %s
+        ''', (nom,level,cal,id))
+        mysql.connection.commit()
+        return redirect(url_for('esp'))
+
+@app.route('/elim_esp/<id>')
+def elimesp(id):
+    cur = mysql.connection.cursor()
+    cur.execute(
+    '''DELETE FROM plan_especializacion 
+     WHERE id_especializacion=%s''',(id))
+    cur.execute('''DELETE FROM especializacion_curso
+    WHERE id_especializacion=%s''',(id))
+    cur.execute('''DELETE FROM especializacion
+     WHERE id_especializacion=%s''',(id))
     mysql.connection.commit()
-    flash('Contacto removido')
-    return redirect(url_for('Index'))
+    return redirect(url_for('esp'))
+
+@app.route('/ver_cur/<id>')
+def curesp(id):
+    cur = mysql.connection.cursor()
+    cur.execute('	SELECT c.* FROM especializacion_curso ec, curso c, especializacion e'\
+	' WHERE ec.id_especializacion=e.id_especializacion'\
+	' AND ec.id_curso=c.id_curso'\
+	' AND e.id_especializacion =%s;',(id))
+    cursosEspecializacion = cur.fetchall()
+    cur.execute('''SELECT id_especializacion FROM especializacion WHERE id_especializacion=%s''',(id))
+    especializacion = cur.fetchall()
+    return render_template('esp/curso_esp.html', cursos = cursosEspecializacion, especializacion = especializacion)
+
+@app.route('/ins_curso/<id>')
+def curso_esp(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT COUNT(*) FROM plan_especializacion
+    WHERE id_especializacion = %s''',(id))
+    idplan = cur.fetchall()
+    if int(idplan[0][0]) == 1:
+        idplan = 2
+    else:
+        idplan = 1
+    idplan = str(idplan)
+    cur.execute('SELECT id_especializacion FROM especializacion WHERE id_especializacion = %s',(id))
+    especializacion = cur.fetchall()
+    cur.execute('''SELECT c.* FROM plan_curso pc,curso c
+	WHERE pc.id_curso=c.id_curso
+	AND pc.id_plan = %s
+	AND c.id_curso NOT IN 
+	(SELECT id_curso FROM especializacion_curso
+	WHERE id_especializacion = %s)''',(idplan,id))
+    cursos = cur.fetchall()
+    return render_template('esp/insCursoEsp.html', cursos = cursos, especializacion=especializacion)
+
+@app.route('/ins_curEsp/<ide>/<idc>')
+def ins_curEsp(ide,idc):
+    cur = mysql.connection.cursor()
+    cur.execute('''INSERT INTO especializacion_curso 
+    VALUES (%s,%s)  ''',(ide,idc))
+    mysql.connection.commit()
+    return redirect(url_for('curesp',id=ide))
+
 
 if __name__ == '__main__':
-    app.run(port=4200, debug=True)
+    app.run(port=3000, debug=True)

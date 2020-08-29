@@ -18,7 +18,9 @@
         <td>{{curso.3}}</td>
         <td>{{curso.4}}</td>
         <td>{{curso.5}}</td>
-        <td>{{curso.6}}</td>    
+        <td>{{curso.6}}</td>  
+        <td> <a href="/edit_cur/{{curso.1}}">EDITAR</a> <br> 
+            <a class="confirm">ELIMINAR</a></td>  
     </tr>
 {% endfor %}
 </table>
@@ -28,4 +30,8 @@
 <a href="/add_curso" class="btn btn-primary">Agregar curso</a>
 <a href="/" class="btn btn-outline-primary">Volver</a>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/curso.js') }}"></script>
 {% endblock %}

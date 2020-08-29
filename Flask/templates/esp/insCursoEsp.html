@@ -1,0 +1,34 @@
+{%extends 'layout.html'%}
+
+{% block body %}
+<table class="table table-hover">
+{% for curso in cursos %}
+
+<tr>
+    <td>
+        {{curso.1}}
+    </td>
+    <td>
+        {{curso.2}}
+    </td>
+    <td>
+        {{curso.3}}
+    </td>
+    <td>
+        {{curso.4}}
+    </td>
+    <td>
+        {{curso.5}}
+    </td>
+    <td>
+        <a href="/ins_curEsp/{{especializacion[0][0]}}/{{curso.0}}"><button>Inscribir</button></a>
+    </td>
+</tr>
+
+
+
+
+{% endfor %}
+
+</table>
+{% endblock %}
