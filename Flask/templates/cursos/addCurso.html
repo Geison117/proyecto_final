@@ -1,0 +1,106 @@
+{%extends 'layout.html'%}
+{% block body %}
+<div class="container">
+    <div class="py-5 text-center">
+      <h2>Curso</h2>
+      <p class="lead">Por favor, ingrese los datos necesarios para publicar un curso</p>
+    </div>
+  
+    <div class="row">
+    
+      <div class="col-md-10 col-offset-6 center_div">
+        <h4 class="mb-3">Incripción </h4>
+        <form class="needs-validation" action="/add_cur" method="POST">
+
+            <div class="mb-3">
+              <label for="firstName">Nombre del curso</label>
+              <input type="text" class="form-control" id="nombre" name="nom" required>
+            </div>
+
+         <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="email">Número de horas teóricas</label>
+              <input name="ct" type="number" class="form-control" id="email" min="0">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="email">Número de horas prácticas</label>
+                <input name="cp" type="number"  class="form-control" id="email"  min="0">
+              </div>
+        </div>
+
+
+            <div class="mb-3">
+                <label for="email">Calificación</label>
+                <input name="cal" type="number" step="0.1" class="form-control" id="email" min="0" max="5">  
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="lastName">Plan para acceder al curso</label>
+                <select class="custom-select d-block w-100" id="country" required="" name="plan">
+                    <option value="" disabled selected>Seleccione..</option>
+                    {% for plan in planes%}  
+                    <option value="{{plan.0}}">{{plan.1}}</option>
+                    {% endfor%}
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">    
+                    <label for="lastName">Institución que ofrece el curso</label>
+                    <select class="custom-select d-block w-100" id="country" required="" name="ins">
+                      <option value="" disabled selected>Seleccione..</option>
+                        {% for institucion in instituciones%}  
+                        <option value="{{institucion.0}}">{{institucion.1}}</option>
+                        {% endfor%}
+                      </select>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 mb-3">
+                         <label for="username">Categoria 1</label>
+                         <select class="custom-select d-block w-100" id="country" required="" name="cat1">
+                          <option value="" disabled selected>Seleccione..</option>
+                          {%for categoria in categorias %}
+                              <option value="{{categoria.0}}">{{categoria.1}}</option>
+                          {%endfor%}
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="username">Categoria 2</label>
+                        <select class="custom-select d-block w-100" id="country" required="" name="cat2">
+                        <option value="0">Ninguna</option> 
+                        {%for categoria in categorias %}
+                             <option value="{{categoria.0}}">{{categoria.1}}</option>
+                         {%endfor%}
+                        </select>
+                     </div>
+                     <div class="col-md-4 mb-3">
+                      <label for="username">Categoria 3</label>
+                      <select class="custom-select d-block w-100" id="country" required="" name="cat3">
+                      <option value="0">Ninguna</option> 
+                      {%for categoria in categorias %}
+                           <option value="{{categoria.0}}">{{categoria.1}}</option>
+                       {%endfor%}
+                      </select>
+                   </div>
+                    </div>
+  
+             
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" id="btn" type="submit">Inscribir</button>
+        </form>
+      </div>
+    </div>
+  
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2020-2021 CursosDB</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacidad</a></li>
+        <li class="list-inline-item"><a href="#">Terminos</a></li>
+        <li class="list-inline-item"><a href="#">Suporte</a></li>
+      </ul>
+    </footer>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+crossorigin="anonymous"></script>
+{% endblock %}

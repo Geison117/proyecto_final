@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
+app.config['MYSQL_USER']='usuario'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -100,13 +100,20 @@ def elimins(id):
 @app.route('/cursos')
 def curhtml():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM curso')
+    cur.execute('SELECT i.nombre,c.* FROM curso c join institucion i on i.id_institucion=c.id_institucion')
     data = cur.fetchall()
     return render_template('cursos.html',cursos = data)
     
 @app.route('/add_curso')
 def add_cur():
-    return render_template('addCurso.html')
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM institucion')
+    ins = cur.fetchall()
+    cur.execute('SELECT * FROM plan')
+    pl = cur.fetchall()
+    cur.execute('SELECT * FROM categoria')
+    cat = cur.fetchall()
+    return render_template('addCurso.html',instituciones = ins, planes = pl, categorias = cat )
 
 @app.route('/add_cur', methods=['POST'])
 def addedcur():
@@ -116,10 +123,40 @@ def addedcur():
         clasest= request.form['ct']
         clasesp= request.form['cp']
         calificacion= request.form['cal']
+        plan = request.form['plan']
+        cat1 = request.form['cat1']
+        cat2 = request.form['cat2']
+        cat3 = request.form['cat3']
         cur = mysql.connection.cursor()
         cur.execute(''' 
         INSERT INTO curso (id_institucion,nombre,clases_teoricas,clases_practicas,calificacion) VALUES (%s, %s, %s,%s,%s)
         ''', (institucion,nombre,clasest,clasesp,calificacion))
+        mysql.connection.commit()
+        cur.execute('SELECT MAX(id_curso) FROM curso')
+        id = cur.fetchall()
+        print(id[0])
+        print(plan)
+        print(cat1)
+        print(cat2)
+        print(cat3)
+        if int(plan) == 2:
+            cur.execute('INSERT INTO plan_curso VALUES (%s,%s),(%s,%s)',(1,id[0],2,id[0]))
+        else:
+            cur.execute('INSERT INTO plan_curso VALUES (%s,%s)',(1,id[0]))
+        mysql.connection.commit()
+        if int(cat2) > 0 and int(cat3) > 0:
+            if int(cat1) != int(cat2) and int(cat1) != int(cat2):
+                cur.execute('INSERT INTO curso_categoria(id_curso,id_categoria) VALUES (%s,%s),(%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2,id[0],cat3)) 
+        else:
+            if int(cat2) > 0:
+                if cat1 != cat2: 
+                    cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat2)) 
+            else:
+                if int(cat3) > 0:
+                    if cat1 != cat3:
+                        cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s),(%s,%s)',(id[0],cat1,id[0],cat3))
+                else:
+                    cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s)',(id[0],cat1))
         mysql.connection.commit()
         return redirect(url_for('curhtml'))
 
@@ -334,4 +371,4 @@ def delete_contact(id):
     return redirect(url_for('Index'))
 
 if __name__ == '__main__':
-    app.run(port=3800, debug=True)
+    app.run(port=4200, debug=True)
