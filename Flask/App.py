@@ -21,7 +21,7 @@ def Index():
 #RUTAS PARA INSTITUCION
 @app.route('/add_institucion')
 def add_insti():
-    return render_template('addInstitucion.html')
+    return render_template('institucion/addInstitucion.html')
 
 @app.route('/add_insti', methods=['POST'])
 def addedins():
@@ -42,14 +42,14 @@ def insti():
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM institucion')
     ins = cur.fetchall()
-    return render_template('institucion.html',instituciones = ins)
+    return render_template('institucion/institucion.html',instituciones = ins)
 
 @app.route('/edit_ins/<id>')
 def editins(id):
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM institucion WHERE id_institucion = %s',(id))
     ins = cur.fetchall()
-    return render_template('editinstitucion.html', institucion = ins[0])
+    return render_template('institucion/editinstitucion.html', institucion = ins[0])
 
 @app.route('/update_ins/<id>', methods = ['POST'])
 def updateins(id):
@@ -102,7 +102,7 @@ def curhtml():
     cur = mysql.connection.cursor()
     cur.execute('SELECT i.nombre,c.* FROM curso c join institucion i on i.id_institucion=c.id_institucion')
     data = cur.fetchall()
-    return render_template('cursos.html',cursos = data)
+    return render_template('cursos/cursos.html',cursos = data)
     
 @app.route('/add_curso')
 def add_cur():
@@ -113,7 +113,7 @@ def add_cur():
     pl = cur.fetchall()
     cur.execute('SELECT * FROM categoria')
     cat = cur.fetchall()
-    return render_template('addCurso.html',instituciones = ins, planes = pl, categorias = cat )
+    return render_template('cursos/addCurso.html',instituciones = ins, planes = pl, categorias = cat )
 
 @app.route('/add_cur', methods=['POST'])
 def addedcur():
@@ -158,7 +158,7 @@ def addedcur():
                 else:
                     cur.execute('INSERT INTO curso_categoria (id_curso,id_categoria) VALUES (%s,%s)',(id[0],cat1))
         mysql.connection.commit()
-        return redirect(url_for('curhtml'))
+        return redirect(url_for('cursos/curhtml'))
 
 #RUTAS PARA ESTUDIANTE
 
@@ -170,11 +170,11 @@ def esthtml():
     data = cur.fetchall()
     cur.execute('SELECT nombre FROM plan')
     nombrePlan=cur.fetchall()
-    return render_template('/estudiante/estudiante.html',estudiantes = data, plan = nombrePlan)
+    return render_template('estudiante/estudiante.html',estudiantes = data, plan = nombrePlan)
 
 @app.route('/add_estudiante')
 def add_est():
-    return render_template('/estudiante/addEstudiante.html')
+    return render_template('estudiante/addEstudiante.html')
 
 @app.route('/add_estud', methods=['POST'])
 def addedes():
@@ -217,7 +217,7 @@ def upest(id):
     WHERE id_estudiante =%s''',(id))
     datosEstudiante = cur.fetchall()
     
-    return render_template('/estudiante/editEstudiante.html', estudiante = datosEstudiante)
+    return render_template('estudiante/editEstudiante.html', estudiante = datosEstudiante)
 
 @app.route('/update_estud/<id>', methods=['POST'])
 def updatees(id):
@@ -245,7 +245,7 @@ def ver_cursos(id):
     cursosEstudiante = cur.fetchall()
     cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
-    return render_template('/estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
+    return render_template('estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
 
 
 @app.route('/ver_especializaciones/<id>')
@@ -278,7 +278,7 @@ def inscur(id):
 	(SELECT id_curso FROM estudiante_curso
 	WHERE id_estudiante = %s)''',(idplan,id))
     cursos = cur.fetchall()
-    return render_template('/estudiante/inscripcionCurso.html', cursos = cursos, estudiante=estudiante)
+    return render_template('estudiante/inscripcionCurso.html', cursos = cursos, estudiante=estudiante)
 
 @app.route('/ins_cur/<ide>/<idc>')
 def ins_cur(ide,idc):
