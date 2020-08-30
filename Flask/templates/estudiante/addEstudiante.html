@@ -2,19 +2,65 @@
 
 
 {%block body%}
-    <form action="/add_estud" method="POST">
+<div class="container">
+    <div class="py-5 text-center">
+      <h2>Estudiante</h2>
+      <p class="lead">Por favor, Ingrese los datos solicitados</p>
+    </div>
+  
+    <div class="row">
     
-    <input type="text" maxlength="30" name="nom">
-    <input type="text" maxlength="30" name="ape">
-    <input type="text" maxlength="30" name="usu">
-    <input type="date" name="fec">
-    <input type="text" maxlength="20" name="nac">
-    <select name="pla">
-        <option value="1">Gratis</option>
-        <option value="2">Premium</option>
-    </select>
-
-
-    <button type="submit">Agregar Estudiante</button>
-    </form>
+      <div class="col-md-10 col-offset-6 center_div">
+        <h4 class="mb-3">Inscripción</h4>
+        <form class="needs-validation" action="/add_estud" method="POST">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="firstName">Nombre</label>
+              <input type="text" class="form-control" id="nombre" maxlength="30" name="nom" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Apellido</label>
+              <input type="text" class="form-control" id="nombre" maxlength="30" name="ape" required>
+            </div>
+          </div>
+          <div class="mb-3 ">
+            <label for="email">Usuario</label>
+            <input name="usu" type="text" class="form-control" maxlength="30" id="email" >
+          </div>
+          <div class="mb-3">
+            <label for="">Nacionalidad</label>
+            <input type="text" maxlength="30" name="nac" class="form-control">
+        </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="">Fecha de nacimiento</label>
+                <input type="date" name="fec" class="form-control">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="">Plan</label>
+                <select name="pla" class="custom-select d-block w-100">
+                  <option value="1">Free</option>
+                  <option value="2">Premium</option>
+              </select>
+            
+          </div>
+       
+         </div>   
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Inscribir</button>
+        </form>
+      </div>
+    </div>
+  
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2020-2021 CursosDB</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacidad</a></li>
+        <li class="list-inline-item"><a href="#">Terminos</a></li>
+        <li class="list-inline-item"><a href="#">Suporte</a></li>
+      </ul>
+    </footer>
+  </div>
+  
+  
     {%endblock%}

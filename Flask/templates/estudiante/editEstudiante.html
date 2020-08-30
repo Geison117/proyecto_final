@@ -2,21 +2,65 @@
 
 
 {% block body %}
-<form action="/update_estud/{{estudiante[0][0]}}" method="POST">
+<div class="container">
+    <div class="py-5 text-center">
+      <h2>Estudiante</h2>
+      <p class="lead">Por favor, Ingrese los datos solicitados</p>
+    </div>
+  
+    <div class="row">
     
-    <input type="text" maxlength="30" value="{{estudiante[0][1]}}" name="nom">
-    <input type="text" maxlength="30" value="{{estudiante[0][2]}}" name="ape">
-    <input type="text" maxlength="30" value="{{estudiante[0][3]}}" name="usu">
-    <input type="date" value="{{estudiante[0][4]}}" name="fec">
-    <input type="text" maxlength="20" value="{{estudiante[0][5]}}" name="nac">
-    <select  name="pla">
-        <option value="1">Gratis</option>
-        <option value="2">Premium</option>
-    </select>
+      <div class="col-md-10 col-offset-6 center_div">
+        <h4 class="mb-3">Edición</h4>
 
-
-    <button type="submit">Editar Estudiante</button>
-    </form>
-
+        <form class="needs-validation" action="/update_estud/{{estudiante[0][0]}}"  method="POST">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="firstName">Nombre</label>
+              <input type="text" class="form-control" id="nombre"  value="{{estudiante[0][1]}}"  maxlength="30" name="nom" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Apellido</label>
+              <input type="text" class="form-control" id="nombre"  value="{{estudiante[0][2]}}" maxlength="30" name="ape" required>
+            </div>
+          </div>
+          <div class="mb-3 ">
+            <label for="email">Usuario</label>
+            <input name="usu" type="text" class="form-control"  value="{{estudiante[0][3]}}" maxlength="30" id="email" >
+          </div>
+          <div class="mb-3">
+            <label for="">Nacionalidad</label>
+            <input type="text" maxlength="30"  value="{{estudiante[0][5]}}" name="nac" class="form-control">
+        </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="">Fecha de nacimiento</label>
+                <input type="date"  value="{{estudiante[0][4]}}" name="fec" class="form-control">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="">Plan</label>
+                <select name="pla" class="custom-select d-block w-100">
+                  <option value="1">Free</option>
+                  <option value="2">Premium</option>
+              </select>
+            
+          </div>
+       
+         </div>   
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Editar</button>
+        </form>
+      </div>
+    </div>
+  
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">© 2020-2021 CursosDB</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacidad</a></li>
+        <li class="list-inline-item"><a href="#">Terminos</a></li>
+        <li class="list-inline-item"><a href="#">Suporte</a></li>
+      </ul>
+    </footer>
+  </div>
 
 {% endblock %}
