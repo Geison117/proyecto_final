@@ -1,7 +1,7 @@
 {%extends 'layout.html'%}
 
 {%block source%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
 {%endblock%}
 
 
@@ -9,21 +9,28 @@
 
 
 <div class="my-3 p-3 center_div bg-white rounded box-shadow" >
-    <div class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow">
-        <h4> Estudiantes Inscritos</h4>
+
+    <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
+    <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
+        <h1> Estudiantes Inscritos</h1>
     </div>
-<table class="table table-hover table-bordered">
+    
+
+
+
+<table class="table table-hover ">
+    <thead>
     <tr>
-        <td>Nombre</td>
-        <td>Apellido</td>
-        <td>Usuario</td>
-        <td>Fecha de nacimiento</td>
-        <td>Nacionalidad</td>
-        <td>Plan</td>
-        <td colspan="4">Opciones</td>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Usuario</th>
+        <th>Fecha de nacimiento</th>
+        <th>Nacionalidad</th>
+        <th>Plan</th>
+        <th colspan="4">Opciones</th>
     </tr>
-
-
+</thead>
+<tbody>
 {% for estudiante in estudiantes %}
 <tr>
     <td>{{estudiante.1}}</td>
@@ -38,16 +45,17 @@
         <td>{{plan.1.0}}</td>
     {% endif %}
 
-    <td> <a href="/update_estudiante/{{estudiante.0}}">Editar</a></td>
-    <td> <a href="/elim_est/{{estudiante.0}}" >Cancelar suscripción</a></td>
-    <td><a href="/ver_cursos/{{estudiante.0}}">Ver cursos </a></td>
-    <td> <a href="/ver_especializaciones/{{estudiante.0}}">  Ver especializaciones </a></td>
+    <td> <a href="/update_estudiante/{{estudiante.0}}"> <button class="btn btn-warning">Editar</button> </a></td>
+    <td> <a href="/elim_est/{{estudiante.0}}" ><button class="btn btn-danger">Cancelar suscripción</button></a></td>
+    <td><a href="/ver_cursos/{{estudiante.0}}"><button class="btn btn-info">Ver cursos</button> </a></td>
+    <td> <a href="/ver_especializaciones/{{estudiante.0}}">  <button class="btn btn-secondary">Ver especializaciones</button> </a></td>
 </tr>
 
 
 {% endfor %}
+</tbody>
 </table>
-<form action="/add_estudiante" class="mb-4 center_div">
+<form action="/add_estudiante">
     <button type="submit" class="btn btn-primary mr-3">Inscribir nuevo estudiante</button>
     <a href="/" class="btn btn-outline-secondary">Volver</a>
 </form> 

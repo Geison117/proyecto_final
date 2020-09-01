@@ -1,0 +1,35 @@
+table{
+
+
+    border-radius: 20px;
+}
+
+
+
+#div{
+
+    
+    margin-top:-200px;
+}
+img
+{
+    width: 700px;
+    margin-bottom: -100px;
+    margin-left: 60%;
+}
+thead{
+
+    background-color: #0388f4;
+    text-align: center;
+   
+    color: white;
+    font-size: large;
+}
+
+aside {
+    position: top;
+    color: black;
+    top: 35%;
+    left: 100%;
+    text-align: right;
+}

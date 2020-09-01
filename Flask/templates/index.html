@@ -8,20 +8,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     {% endblock %}
     {%block body%}
-    <nav class="menu">
-        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-        <label class="menu-open-button" for="menu-open">
-         <span class="lines line-1"></span>
-         <span class="lines line-2"></span>
-         <span class="lines line-3"></span>
-       </label>
-     
-        <a href="/estudiante" class="menu-item blue"> E<i class="fa fa-anchor"></i> </a>
-        <a href="/cursos" class="menu-item green"> C<i class="fa fa-coffee"></i> </a>
-        <a href="/institucion" class="menu-item red"> I<i class="fa fa-heart"></i> </a>
-        <a href="/especializacion" class="menu-item purple">ESP<i class="fa fa-microphone"></i> </a>
-        <a href="#" class="menu-item orange"> <i class="fa fa-star"></i> </a>
-        <a href="#" class="menu-item lightblue"> <i class="fa fa-diamond"></i> </a>
-     </nav>
+    <aside>
+  
+      <img src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
+    </aside>
+    <input type="checkbox" id="menu-toggle"/>
+      <label id="trigger" for="menu-toggle"></label>
+      <label id="burger" for="menu-toggle"></label>
+      <ul id="menu">
+        <li><a href="/estudiante">Estudiante</a></li>
+        <li><a href="/cursos">Cursos</a></li>
+        <li><a href="/especializacion">Especializaciones</a></li>
+        <li><a href="/institucion">Instituciones</a></li>
+      </ul>
     {%endblock%}
     
