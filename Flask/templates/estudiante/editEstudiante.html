@@ -2,16 +2,16 @@
 
 
 {% block body %}
-<div class="container">
-    <div class="py-5 text-center">
-      <h2>Estudiante</h2>
+   <div class="col-md-10 col-offset-6 center_div">
+    <div class="py-5 text-center" >
+      <h2 id="titulo">Estudiante</h2>
       <p class="lead">Por favor, Ingrese los datos solicitados</p>
     </div>
   
     <div class="row">
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3">Edición</h4>
+        <h4 class="mb-3" id="edicion">Edición</h4>
 
         <form class="needs-validation" action="/update_estud/{{estudiante[0][0]}}"  method="POST">
           <div class="row">
@@ -53,7 +53,7 @@
           <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="">Fecha de nacimiento</label>
-                <input id = 'fecha' type="date"  value="{{estudiante[0][4]}}" name="fec" class="form-control">
+                <input id = 'fecha' type="text"  value="{{estudiante[0][4]}}" name="fec" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="">Plan</label>
@@ -66,7 +66,7 @@
        
          </div>   
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Editar</button>
+          <button class="btn btn-primary btn-lg btn-block" type="submit" id="editBtn">Editar</button>
         </form>
       </div>
     </div>

@@ -3,22 +3,25 @@
 
 {%block source%}
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/estudiantes.js') }}"></script>
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estudiante.css') }}">
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
 {%endblock%}
 
 {%block body%}
 <div class="container">
     <div class="py-5 text-center">
-      <h2>Estudiante</h2>
+      <h2 id="titulo">Estudiante</h2>
       <p class="lead">Por favor, Ingrese los datos solicitados</p>
     </div>
   
     <div class="row">
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3">Inscripción</h4>
+        <h4 class="mb-3" id="edicion">Inscripción</h4>
         <form class="needs-validation" action="/add_estud" method="POST">
           <div class="row">
             <div class="col-md-6 mb-3">
@@ -55,12 +58,12 @@
               <option>Panamá</option>
               <option>Ecuador</option>
             </select>
-            
         </div>
           <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="">Fecha de nacimiento</label>
-                <input id='fecha' type="date" name="fec" class="form-control">
+                <!-- <input id='fecha' type="date" name="fec" class="form-control"> -->
+                <input type="text" id="fecha"  name="fec" class="form-control"/>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="">Plan</label>
