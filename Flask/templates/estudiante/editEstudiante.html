@@ -1,4 +1,4 @@
-{%extends 'layout.html'%}
+{%extends 'estudiante/addEstudiante.html'%}
 
 
 {% block body %}
@@ -29,13 +29,31 @@
             <input name="usu" type="text" class="form-control"  value="{{estudiante[0][3]}}" maxlength="30" id="email" >
           </div>
           <div class="mb-3">
-            <label for="">Nacionalidad</label>
-            <input type="text" maxlength="30"  value="{{estudiante[0][5]}}" name="nac" class="form-control">
+            <label for="">Nacionalidad</label>            
+            <select class="custom-select d-block w-100" id="country" required="" name="nac" value="{{estudiante[0][5]}}">
+              <option value="" disabled>Seleccione..</option>
+              <option value = "Colombia">Colombia</option>
+              <option value="Canadá">Canadá</option>
+              <option value="USA">USA</option>
+              <option value = "México">México</option>
+              <option value="Inglaterra">Inglaterra</option>
+              <option value= "España">España</option>
+              <option value = 'Argentina'>Argentina</option>
+              <option value ='Francia' >Francia</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Italia">Italia</option>
+              <option value="Alemania">Alemania</option>
+              <option value="Rusia">Rusia</option>
+              <option value="Portugal">Portugal</option>
+              <option value="Chile">Chile</option>
+              <option value="Panamá">Panamá</option>
+              <option value="Ecuador">Ecuador</option>
+            </select>
         </div>
           <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="">Fecha de nacimiento</label>
-                <input type="date"  value="{{estudiante[0][4]}}" name="fec" class="form-control">
+                <input id = 'fecha' type="date"  value="{{estudiante[0][4]}}" name="fec" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="">Plan</label>
@@ -62,5 +80,11 @@
       </ul>
     </footer>
   </div>
+  
+  <script type="text/javascript"> 
+     var valor = '{{estudiante[0][5]}}';
+     $("#country > option[value="+ valor +"]").attr("selected",true);
+  </script>
+ 
 
 {% endblock %}

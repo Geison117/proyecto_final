@@ -1,6 +1,13 @@
 {%extends 'layout.html'%}
 
 
+{%block source%}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/estudiantes.js') }}"></script>
+
+{%endblock%}
+
 {%block body%}
 <div class="container">
     <div class="py-5 text-center">
@@ -29,12 +36,31 @@
           </div>
           <div class="mb-3">
             <label for="">Nacionalidad</label>
-            <input type="text" maxlength="30" name="nac" class="form-control">
+            <select class="custom-select d-block w-100" id="country" required="" name="nac">
+              <option value="" disabled selected>Seleccione..</option>
+              <option>Colombia</option>
+              <option>Canadá</option>
+              <option>USA</option>
+              <option>México</option>
+              <option>Inglaterra</option>
+              <option>España</option>
+              <option>Argentina</option>
+              <option>Francia</option>
+              <option>Brasil</option>
+              <option>Italia</option>
+              <option>Alemania</option>
+              <option>Rusia</option>
+              <option>Portugal</option>
+              <option>Chile</option>
+              <option>Panamá</option>
+              <option>Ecuador</option>
+            </select>
+            
         </div>
           <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="">Fecha de nacimiento</label>
-                <input type="date" name="fec" class="form-control">
+                <input id='fecha' type="date" name="fec" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="">Plan</label>
