@@ -1,14 +1,6 @@
 
 $( document ).ready(function() {
-
-    var now = new Date();
-
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-    $("#fecha").attr('max', today);
-
+    
 });
 
 $(function () {
@@ -23,7 +15,8 @@ $(function () {
         changeYear: true,
         dateFormat: 'yy-mm-dd',
         monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        maxDate: 0
     });
 });
 

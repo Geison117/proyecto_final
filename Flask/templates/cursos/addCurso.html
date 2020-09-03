@@ -1,15 +1,16 @@
-{%extends 'layout.html'%}
+{%extends  'estudiante/addEstudiante.html'%}
 {% block body %}
 <div class="container">
-    <div class="py-5 text-center">
-      <h2>Curso</h2>
-      <p class="lead">Por favor, ingrese los datos necesarios para publicar un curso</p>
-    </div>
+    
   
     <div class="row">
-    
+      
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3">Inscripción </h4>
+        <div class="py-5 text-center" id="head">
+          <h2>Curso</h2>
+          <p class="lead">Por favor, ingrese los datos necesarios para publicar un curso</p>
+        </div>
+        <h4 class="mb-3" id="subtitulo">Inscripción </h4>
         <form class="needs-validation" action="/add_cur" method="POST">
 
             <div class="mb-3">

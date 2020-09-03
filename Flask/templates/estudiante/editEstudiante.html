@@ -3,15 +3,16 @@
 
 {% block body %}
    <div class="col-md-10 col-offset-6 center_div">
-    <div class="py-5 text-center" >
-      <h2 id="titulo">Estudiante</h2>
-      <p class="lead">Por favor, Ingrese los datos solicitados</p>
-    </div>
+    <a href="/estudiante" class="btn btn-outline-secondary">Volver</a>
   
     <div class="row">
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3" id="edicion">Edición</h4>
+        <div class="py-5 text-center" id="head">
+          <h2 id="titulo">Estudiante</h2>
+          <p class="lead">Por favor, Ingrese los datos solicitados</p>
+        </div>
+        <h4 class="mb-3" id="subtitulo">Edición</h4>
 
         <form class="needs-validation" action="/update_estud/{{estudiante[0][0]}}"  method="POST">
           <div class="row">

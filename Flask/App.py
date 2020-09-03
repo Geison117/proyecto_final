@@ -279,14 +279,16 @@ def updatees(id):
 @app.route('/ver_cursos/<id>')
 def ver_cursos(id):
     cur = mysql.connection.cursor()
-    cur.execute('	SELECT c.* FROM estudiante_curso ec, curso c, estudiante e'\
-	' WHERE ec.id_estudiante=e.id_estudiante'\
-	' AND ec.id_curso=c.id_curso'\
-	' AND e.id_estudiante =%s;',(id))
+    cur.execute('''	SELECT i.nombre, c.nombre, c.clases_practicas, c.clases_teoricas, c.calificacion  
+    FROM estudiante_curso ec, curso c, estudiante e, institucion i
+	WHERE ec.id_estudiante=e.id_estudiante
+	AND ec.id_curso=c.id_curso
+	AND e.id_estudiante = %s
+	AND i.id_institucion = c.id_institucion''',(id))
     cursosEstudiante = cur.fetchall()
-    cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
+    cur.execute('''SELECT * FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
-    return render_template('estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante)
+    return render_template('estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante[0])
 
 
 @app.route('/ver_especializaciones/<id>')

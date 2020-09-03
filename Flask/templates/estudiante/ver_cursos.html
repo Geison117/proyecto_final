@@ -1,31 +1,61 @@
 {%extends 'layout.html'%}
 
+{%block source%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+{%endblock%}
+
 {% block body %}
 
 {%  if cursos |length >0 : %}
-    <table>
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+    <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
+    <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
+        <h2> Cursos inscritos por {{estudiante.1}} {{estudiante.2}} </h2>
+    </div>
+    <table class="table table-hover ">
+
+        <thead>
+            <tr>
+                <th>Institución</th>
+                <th>Curso</th>
+                <th>Horas prácticas</th>
+                <th>Horas teóricas</th>
+                <th>Calificación</th>
+            </tr>
+        </thead>
     {% for curso in cursos %}
         <tr>
         <td>
+            {{curso.0}}
+        </td>
+
+        <td>
+            {{curso.1}}
+        </td>
+
+        <td>
             {{curso.2}}
         </td>
+
         <td>
             {{curso.3}}
         </td>
+
         <td>
             {{curso.4}}
         </td>
-        <td>
-            {{curso.5}}
-        </td>
+
+
         </tr>
 
     {% endfor %}
     </table>
+</div>
 {% else %}
     <h1>Este estudiante no tiene cursos matriculados</h1>
 {% endif %}
-
- <a href="/inscribir_curso/{{estudiante[0][0]}}"><button>Inscribir nuevo curso</button></a>
-
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+ <a href="/inscribir_curso/{{estudiante[0]}}"  class="btn btn-primary mr-3"">Inscribir nuevo curso</a>
+ <a href="/estudiante" class="btn btn-outline-secondary">Volver</a>
+</div>
 {% endblock %}

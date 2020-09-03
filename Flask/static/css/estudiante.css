@@ -1,10 +1,20 @@
-#titulo, #edicion{
+#subtitulo{
 
     color: #007BFF;
     font: bold;
     font-family:sans-serif;
 
 }
+
+
+#head{
+    background-color: #007BFF;
+    font: bold;
+    color: white;
+    padding: 2%;
+    border-radius: .8em;
+}
+
 
 
 
