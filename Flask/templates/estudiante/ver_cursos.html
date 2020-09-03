@@ -2,6 +2,7 @@
 
 {%block source%}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
 {%endblock%}
 
 {% block body %}
@@ -21,6 +22,7 @@
                 <th>Horas prácticas</th>
                 <th>Horas teóricas</th>
                 <th>Calificación</th>
+                <th>Opción</th>
             </tr>
         </thead>
     {% for curso in cursos %}
@@ -45,6 +47,9 @@
             {{curso.4}}
         </td>
 
+        <td>
+            <a href="/del_cur/{{estudiante[0]}}/{{curso.5}}" class="btn btn-success">Anular suscripción</a>
+        </td>
 
         </tr>
 
@@ -52,10 +57,23 @@
     </table>
 </div>
 {% else %}
+
+
+<div class="center_div mt-3" id="head">
     <h1>Este estudiante no tiene cursos matriculados</h1>
+    
+</div>
+
+<div class="center_div mb-4">
+    <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+</div>
+
 {% endif %}
-<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+<div class="my-3 p-3 center_div bg-white rounded box-shadow"  id="botones">
  <a href="/inscribir_curso/{{estudiante[0]}}"  class="btn btn-primary mr-3"">Inscribir nuevo curso</a>
  <a href="/estudiante" class="btn btn-outline-secondary">Volver</a>
 </div>
+
+
+
 {% endblock %}

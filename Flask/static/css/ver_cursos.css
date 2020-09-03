@@ -1,0 +1,12 @@
+#head{
+    background-color: #007BFF;
+    font: bold;
+    color: white;
+    padding: 2%;
+    border-radius: .8em;
+}
+
+img {
+    width: 50%;
+    display: block;
+}

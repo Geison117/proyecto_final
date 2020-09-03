@@ -279,7 +279,7 @@ def updatees(id):
 @app.route('/ver_cursos/<id>')
 def ver_cursos(id):
     cur = mysql.connection.cursor()
-    cur.execute('''	SELECT i.nombre, c.nombre, c.clases_practicas, c.clases_teoricas, c.calificacion  
+    cur.execute('''	SELECT i.nombre, c.nombre, c.clases_practicas, c.clases_teoricas, c.calificacion, c.id_curso  
     FROM estudiante_curso ec, curso c, estudiante e, institucion i
 	WHERE ec.id_estudiante=e.id_estudiante
 	AND ec.id_curso=c.id_curso
@@ -289,6 +289,14 @@ def ver_cursos(id):
     cur.execute('''SELECT * FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
     return render_template('estudiante/ver_cursos.html', cursos = cursosEstudiante, estudiante=estudiante[0])
+
+@app.route('/del_cur/<ide>/<idc>')
+def borrar_curso_estudiante(ide, idc):
+    cur = mysql.connection.cursor()
+    cur.execute('''	delete from estudiante_curso where id_estudiante = %s and id_curso = %s''',(ide, idc) )
+    mysql.connection.commit()
+    return redirect(url_for('ver_cursos', id=ide))
+
 
 
 @app.route('/ver_especializaciones/<id>')
@@ -311,16 +319,19 @@ def inscur(id):
     idplan = cur.fetchall()
     idplan =idplan[0][0]
     idplan = str(idplan)
-    cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
+    cur.execute('SELECT id_estudiante, nombre, apellido FROM estudiante WHERE id_estudiante = %s',(id))
     estudiante = cur.fetchall()
-    cur.execute('''SELECT c.* FROM plan_curso pc,curso c
+    cur.execute('''SELECT c.*, i.nombre FROM plan_curso pc,curso c, institucion i
 	WHERE pc.id_curso=c.id_curso
 	AND pc.id_plan = %s
+	AND i.id_institucion = c.id_institucion
 	AND c.id_curso NOT IN 
 	(SELECT id_curso FROM estudiante_curso
 	WHERE id_estudiante = %s)''',(idplan,id))
     cursos = cur.fetchall()
-    return render_template('estudiante/inscripcionCurso.html', cursos = cursos, estudiante=estudiante)
+    return render_template('estudiante/inscripcionCurso.html', cursos = cursos, estudiante=estudiante[0])
+
+
 
 @app.route('/ins_cur/<ide>/<idc>')
 def ins_cur(ide,idc):
@@ -425,6 +436,10 @@ def updateesp(id):
 @app.route('/elim_esp/<id>')
 def elimesp(id):
     cur = mysql.connection.cursor()
+
+    cur.execute(
+    '''DELETE FROM estudiante_especializacion 
+     WHERE id_especializacion=%s''',(id))
     cur.execute(
     '''DELETE FROM plan_especializacion 
      WHERE id_especializacion=%s''',(id))
@@ -432,6 +447,8 @@ def elimesp(id):
     WHERE id_especializacion=%s''',(id))
     cur.execute('''DELETE FROM especializacion
      WHERE id_especializacion=%s''',(id))
+
+     
     mysql.connection.commit()
     return redirect(url_for('esp'))
 
