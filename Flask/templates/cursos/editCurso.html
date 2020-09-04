@@ -16,12 +16,12 @@
       </div>
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3" id="subtitulo">Edición</h4>
+        <h4 class="mb-3" id="subtitulo"></h4>
         <form class="needs-validation" action="/update_cur/{{curso.0}}" method="POST">
 
             <div class="mb-3">
               <label for="firstName">Nombre del curso</label>
-              <input type="text" class="form-control" id="nombre" name="nom" value="{{curso.2}}" required>
+              <input type="text" class="form-control" id="nombre" name="nom" value="{{curso.2}}" maxlength="100" required>
             </div>
 
          <div class="row">

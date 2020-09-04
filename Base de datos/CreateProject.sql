@@ -133,6 +133,6 @@ FOREIGN KEY (id_plan) REFERENCES plan(id_plan),
 FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 );
 
-INSERT INTO plan (nombre,precio) VALUES('Free',2000),('Premium',3000);
+INSERT INTO plan (nombre,precio) VALUES('Gratis',0),('Premium',10000);
 
-INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),('Ciencia'),('Deportes'),('Tecnología'),('Matematicas') 
+INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),('Ciencia'),('Deportes'),('Tecnología'),('Matematicas'); 

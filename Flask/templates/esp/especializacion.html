@@ -25,7 +25,8 @@
     </tr>
 </thead>
 <tbody>
-{% for esp in especializaciones %}
+    {%  if especializaciones |length >0 : %}
+        {% for esp in especializaciones %}
     <tr>
       <td>{{esp.0}}</td>
         <td>{{esp.2}}</td>
@@ -36,7 +37,13 @@
             <a href="/ver_cur/{{esp.1}}" class="btn btn btn-info">Ver cursos</a>
         </td> 
     </tr>
-{% endfor %}
+        {% endfor %}
+    {% else %}
+
+    <td colspan="8"><h1>No hay especializaciones inscritas</h1></td>
+    {% endif %}
+
+
 </tbody>
 </table>
 

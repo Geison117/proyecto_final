@@ -14,7 +14,7 @@
 
             <div class="mb-3">
               <label for="firstName">Nombre de la especialización</label>
-              <input type="text" class="form-control" id="nombre" name="nom" required>
+              <input type="text" class="form-control" id="nombre" name="nom" maxlength="100" required>
             </div>
 
         
@@ -30,7 +30,7 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="lastName">Plan para acceder al curso</label>
+                <label for="lastName">Plan para acceder a la especialización</label>
                 <select class="custom-select d-block w-100" id="country" required="" name="plan">
                     <option value="" disabled selected>Seleccione..</option>
                     {% for plan in planes%}  
@@ -39,7 +39,7 @@
                   </select>
                 </div>
                 <div class="col-md-6 mb-3">    
-                    <label for="lastName">Institución que ofrece el curso</label>
+                    <label for="lastName">Institución que ofrece la especialización</label>
                     <select class="custom-select d-block w-100" id="country" required="" name="ins">
                       <option value="" disabled selected>Seleccione..</option>
                         {% for institucion in instituciones%}  

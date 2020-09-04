@@ -32,7 +32,9 @@
     </tr>
 </thead>
 <tbody>
-{% for estudiante in estudiantes %}
+
+     {%  if estudiantes |length >0 : %}
+        {% for estudiante in estudiantes %}
 <tr>
     <td>{{estudiante.1}}</td>
     <td>{{estudiante.2}}</td>
@@ -53,8 +55,16 @@
 </tr>
 
 
-{% endfor %}
+        {% endfor %}
+        {% else %}
+
+        <td colspan="10"> <h1>No hay estudiantes inscritos</h1> </td>
+        {% endif %}
+
+
+
 </tbody>
+
 </table>
 <form action="/add_estudiante">
     <button type="submit" class="btn btn-primary mr-3">Inscribir nuevo estudiante</button>

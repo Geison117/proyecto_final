@@ -29,6 +29,7 @@
         <th colspan="2">Opciones</th>
     </tr>
 </thead>
+{%  if instituciones |length >0 : %}
 <tbody>
     {% for institucion in instituciones %}
     <tr>
@@ -51,6 +52,10 @@
 
     </tr>
     {%endfor%}
+{% else %}
+
+<td colspan="6"><h1>No hay convenios con instituciones</h1></td>
+{% endif %}
 </tbody>
 </table>
 

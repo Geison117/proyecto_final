@@ -18,12 +18,12 @@ Añadir Institución
         <h2>Institución</h2>
         <p class="lead">Por favor, ingrese los datos institucionales que se le solicitan</p>
       </div>
-      <h4 class="mb-3" id="subtitulo">Inscripción</h4>
+      <h4 class="mb-3" id="subtitulo"></h4>
       <form class="needs-validation" action="/add_insti" method="POST">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">Nombre Institucional</label>
-            <input type="text" class="form-control" id="nombre" name="nom" required>
+            <input type="text" class="form-control" id="nombre" name="nom" maxlength="50" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Pais</label>

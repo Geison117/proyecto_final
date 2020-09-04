@@ -1,7 +1,7 @@
 {%extends 'layout.html'%}
 
 {%block source%}
-{%  if especializaciones |length >0 : %}
+{%  if cursos |length >0 : %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
 {% else %}   
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
@@ -9,7 +9,7 @@
 {%endblock%}
 
 {% block body %}
-{%  if especializaciones |length >0 : %}
+{%  if cursos |length >0 : %}
 <div class="my-3 p-3 center_div bg-white rounded box-shadow" >
     <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
     <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
