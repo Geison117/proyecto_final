@@ -1,12 +1,15 @@
 {%extends 'layout.html'%}
 
 {%block source%}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
-
+{%  if especializaciones |length >0 : %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+{% else %}   
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
+{% endif %}    
 {%endblock%}
 
 {% block body %}
-
+{%  if especializaciones |length >0 : %}
 <div class="my-3 p-3 center_div bg-white rounded box-shadow" >
     <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
     <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
@@ -54,9 +57,24 @@
 
     {% endfor %}
     </table>
+    {% else %}
+    <div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+    
+    
+    
+        <div class="center_div mt-3" id="head">
+            <h1>No hay cursos disponibles</h1>        
+        </div>
+        
+        <div class="row">
+            <div class="center_div mb-4">
+                <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+            </div>
+        </div>
 
-   
-    <a href="/ver_cursos/{{estudiante.0}}" class="btn btn-primary">Volver</a>
-
+        {% endif %}    
+        <div class="center_div"  id="botones"> 
+            <a href="/ver_cursos/{{estudiante.0}}" class="btn btn-primary btn-lg btn-block">Volver</a>
+        </div>
 </div>
 {% endblock %}

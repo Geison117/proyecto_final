@@ -70,6 +70,17 @@ def updateins(id):
 @app.route('/elim_ins/<id>')
 def elimins(id):
     cur = mysql.connection.cursor()
+    
+    cur.execute('''
+    DELETE FROM plan_especializacion 
+    WHERE id_especializacion IN (SELECT id_especializacion 
+    FROM especializacion WHERE id_institucion = %s)''',(id))
+
+    cur.execute('''
+    DELETE FROM curso_categoria
+    WHERE id_curso IN (SELECT id_curso 
+    FROM curso WHERE id_institucion = %s)''',(id))
+
 
     cur.execute('''
     DELETE FROM estudiante_curso WHERE
@@ -80,6 +91,15 @@ def elimins(id):
     DELETE FROM estudiante_especializacion WHERE
 	id_especializacion IN (SELECT id_especializacion FROM especializacion
     WHERE id_institucion = %s)''',(id))
+
+    cur.execute('''
+    DELETE FROM especializacion_curso
+    WHERE id_curso IN (SELECT id_curso FROM curso WHERE id_institucion = %s)
+    OR id_especializacion IN (SELECT id_especializacion FROM especializacion WHERE id_institucion = %s) ''',(id,id))
+
+    cur.execute('''
+    DELETE FROM plan_curso
+    WHERE id_curso IN (SELECT id_curso FROM curso WHERE id_institucion = %s)''',(id))
 
     cur.execute('''
     DELETE FROM curso
@@ -522,4 +542,4 @@ def eliminar_curso(ide,idc):
 
 
 if __name__ == '__main__':
-    app.run(port=3100, debug=True)
+    app.run(port=3000, debug=True)

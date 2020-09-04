@@ -1,9 +1,15 @@
 {%extends 'layout.html'%}
 {%block source%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
-{%endblock%}
-{% block body %}
 
+       
+        {%  if cursos |length >0 : %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+        {%else%}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
+        {%endif%}
+   
+{%endblock%}
+{%block body%}
 {%  if cursos |length >0 : %}
 <div class="center_div">
     <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
@@ -54,8 +60,8 @@
     <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
 </div>
 {% endif %}
-<div class="row center_div ">
- <a href="/ins_curso/{{especializacion[0][0]}}" class="btn btn-primary mr-2">Inscribir nuevo curso</a>
- <a href="/especializacion" class="btn btn-outline-secondary">Volver</a>
+<div class="center_div"  id="botones">
+ <a href="/ins_curso/{{especializacion[0][0]}}" class="btn btn-primary btn-lg btn-block">Inscribir nuevo curso</a>
+ <a href="/especializacion" class="btn btn-outline-secondary btn-lg btn-block">Volver</a>
 </div>
  {%endblock%}
