@@ -1,19 +1,22 @@
-{%extends 'layout.html'%}
+{%extends 'estudiante/addEstudiante.html'%}
+
 {% block body %}
 <div class="container">
-    <div class="py-5 text-center col-md-10 center_div">
-      <h2>Curso</h2>
-      <p class="lead">
-          Solo pueden ser editados datos meramente del curso, si desea cambiar datos sobre la 
-          institución, el plan o las categorías a las que pertenece el curso, creelo de nuevo 
-          y borre el anterior.
-      </p>
-    </div>
+    
   
     <div class="row">
+
+      <div class="py-5 text-center col-md-10 center_div" id="head">
+        <h2>Curso</h2>
+        <p class="lead">
+            Solo pueden ser editados datos meramente del curso, si desea cambiar datos sobre la 
+            institución, el plan o las categorías a las que pertenece el curso, creelo de nuevo 
+            y borre el anterior.
+        </p>
+      </div>
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3">Edición</h4>
+        <h4 class="mb-3" id="subtitulo">Edición</h4>
         <form class="needs-validation" action="/update_cur/{{curso.0}}" method="POST">
 
             <div class="mb-3">

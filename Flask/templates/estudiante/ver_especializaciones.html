@@ -1,35 +1,79 @@
 {%extends 'layout.html'%}
 
+{%block source%}
+    {%  if especializaciones |length >0 : %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+    {% else %}   
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
+    {% endif %}    
+{%endblock%}
+
 {% block body %}
 
 
 {%  if especializaciones |length >0 : %}
-<table>
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+    <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
+    <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
+        <h2>  Especializaciones de {{estudiante.1}} {{estudiante.2}} </h2>
+    </div>
+<table class="table table-hover ">
+    <thead>
+        <tr>
+            <th>Especializacion</th>
+            <th>Institución</th>
+            <th>Nivel</th>
+            <th>Calificación</th>
+            <th>Opción</th>
+        </tr>
+    </thead>
 {% for especializacion in especializaciones %}
  <tr>
      <td>
          {{especializacion.1}}
      </td>
      <td>
+        {{especializacion.5}}
+    </td>
+     <td>
         {{especializacion.2}}
     </td>
     <td>
         {{especializacion.3}}
     </td>
+
     <td>
-        {{especializacion.4}}
+        <a href="/del_esp_est/{{estudiante.0}}/{{especializacion.0}}" class="btn btn-danger">Eliminar</a>
     </td>
  </tr>
 
-
-
 {% endfor %}
 </table>
+
+</div>
 {% else %}
-<h1>Este estudiante no está cursando ninguna especializacion</h1>
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+
+
+
+    <div class="center_div mt-3" id="head">
+        <h1>Este estudiante no está cursando ninguna especialización</h1>
+        
+    </div>
+    
+    <div class="row">
+        <div class="center_div mb-4">
+            <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+        </div>
+    </div>
+
 {% endif %}
 
-<a href="/inscribir_especializacion/{{estudiante[0][0]}}"><button>Inscribir nueva especializacion</button></a>
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+    <a href="/inscribir_especializacion/{{estudiante[0]}}"  class="btn btn-primary btn-lg "">Inscribir nueva especialización</a>
+    <a href="/estudiante" class="btn btn-outline-secondary btn-lg">Volver</a>
+</div>
 
 
+</div>
 {% endblock %}

@@ -302,14 +302,27 @@ def borrar_curso_estudiante(ide, idc):
 @app.route('/ver_especializaciones/<id>')
 def ver_especializaciones(id):
     cur = mysql.connection.cursor()
-    cur.execute('	SELECT es.* FROM estudiante_especializacion ee, especializacion es, estudiante e'\
-	' WHERE ee.id_estudiante=e.id_estudiante'\
-	' AND ee.id_especializacion=es.id_especializacion'\
-	' AND e.id_estudiante =%s;',(id))
+    cur.execute('''	SELECT es.*, i.nombre 
+    FROM estudiante_especializacion ee, especializacion es, estudiante e, institucion i
+	 WHERE ee.id_estudiante=e.id_estudiante
+	 AND ee.id_especializacion=es.id_especializacion
+     AND i.id_institucion = es.id_institucion
+	 AND e.id_estudiante =%s;''',(id))
     especializacionEstudiante = cur.fetchall()
-    cur.execute('''SELECT id_estudiante FROM estudiante WHERE id_estudiante=%s''',(id))
+    cur.execute('''SELECT id_estudiante, nombre, apellido FROM estudiante WHERE id_estudiante=%s''',(id))
     estudiante = cur.fetchall()
-    return render_template('/estudiante/ver_especializaciones.html', especializaciones = especializacionEstudiante, estudiante=estudiante)
+    return render_template('/estudiante/ver_especializaciones.html', especializaciones = especializacionEstudiante, estudiante=estudiante[0])
+
+
+@app.route('/del_esp_est/<ide>/<ides>')
+def eliminar_especializaciones_estudiante(ide, ides):
+    cur = mysql.connection.cursor()
+    cur.execute('''delete from estudiante_especializacion 
+    where  id_estudiante = %s
+    and id_especializacion = %s''',(ide,ides))
+    mysql.connection.commit()
+    
+    return redirect(url_for('ver_especializaciones',id=ide))
 
 @app.route('/inscribir_curso/<id>')
 def inscur(id):
@@ -352,16 +365,17 @@ def insesp(id):
     idplan =idplan[0][0]
     idplan = str(idplan)
     
-    cur.execute('SELECT id_estudiante FROM estudiante WHERE id_estudiante = %s',(id))
+    cur.execute('SELECT id_estudiante, nombre, apellido FROM estudiante WHERE id_estudiante = %s',(id))
     estudiante = cur.fetchall()
-    cur.execute('''	SELECT es.* FROM plan_especializacion pc,especializacion es
+    cur.execute('''SELECT es.*, i.nombre FROM plan_especializacion pc,especializacion es, institucion i
 	WHERE pc.id_especializacion=es.id_especializacion
 	AND pc.id_plan = %s
+	AND i.id_institucion = es.id_institucion
 	AND es.id_especializacion NOT IN 
 	(SELECT id_especializacion FROM estudiante_especializacion
 	WHERE id_estudiante = %s)''',(idplan,id))
     especializaciones = cur.fetchall()
-    return render_template('/estudiante/inscripcionEspecializacion.html', especializaciones = especializaciones, estudiante=estudiante)
+    return render_template('/estudiante/inscripcionEspecializacion.html', especializaciones = especializaciones, estudiante=estudiante[0])
 
 @app.route('/ins_esp/<ide>/<ides>')
 def ins_esp(ide,ides):
@@ -448,7 +462,7 @@ def elimesp(id):
     cur.execute('''DELETE FROM especializacion
      WHERE id_especializacion=%s''',(id))
 
-     
+
     mysql.connection.commit()
     return redirect(url_for('esp'))
 

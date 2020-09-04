@@ -1,8 +1,11 @@
 {%extends 'layout.html'%}
 
 {%block source%}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
+    {%  if especializaciones |length >0 : %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+    {% else %}   
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">
+    {% endif %}    
 {%endblock%}
 
 {% block body %}
@@ -48,15 +51,19 @@
         </td>
 
         <td>
-            <a href="/del_cur/{{estudiante[0]}}/{{curso.5}}" class="btn btn-success">Anular suscripción</a>
+            <a href="/del_cur/{{estudiante[0]}}/{{curso.5}}" class="btn btn-danger">Anular suscripción</a>
         </td>
 
         </tr>
 
     {% endfor %}
     </table>
-</div>
+
+    </div>
 {% else %}
+
+<div class="my-3 p-3 center_div bg-white rounded box-shadow" >
+
 
 
 <div class="center_div mt-3" id="head">
@@ -64,16 +71,19 @@
     
 </div>
 
-<div class="center_div mb-4">
-    <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+<div class="row">
+    <div class="center_div mb-4">
+        <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+    </div>
 </div>
+
 
 {% endif %}
-<div class="my-3 p-3 center_div bg-white rounded box-shadow"  id="botones">
- <a href="/inscribir_curso/{{estudiante[0]}}"  class="btn btn-primary mr-3"">Inscribir nuevo curso</a>
- <a href="/estudiante" class="btn btn-outline-secondary">Volver</a>
-</div>
 
+    <div class="center_div"  id="botones">
+        <a href="/inscribir_curso/{{estudiante[0]}}"  class="btn btn-primary btn-lg btn-block"">Inscribir nuevo curso</a>
+        <a href="/estudiante" class="btn btn-outline-secondary btn-lg btn-block">Volver</a>
+     </div>
 
 
 {% endblock %}

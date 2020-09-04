@@ -1,4 +1,5 @@
-{%extends 'layout.html'%}
+{%extends  'estudiante/addEstudiante.html'%}
+
 {%block titulo%}
 Añadir Institución
 {%endblock%}
@@ -6,15 +7,18 @@ Añadir Institución
 
 
     <div class="container">
-  <div class="py-5 text-center">
-    <h2>Institución</h2>
-    <p class="lead">Por favor, ingrese los datos institucionales que se le solicitan</p>
-  </div>
+ 
 
   <div class="row">
+
+   
   
     <div class="col-md-10 col-offset-6 center_div">
-      <h4 class="mb-3">Inscripción</h4>
+      <div class="py-5 text-center" id="head">
+        <h2>Institución</h2>
+        <p class="lead">Por favor, ingrese los datos institucionales que se le solicitan</p>
+      </div>
+      <h4 class="mb-3" id="subtitulo">Inscripción</h4>
       <form class="needs-validation" action="/add_insti" method="POST">
         <div class="row">
           <div class="col-md-6 mb-3">
