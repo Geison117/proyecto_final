@@ -3,7 +3,7 @@
     width:80% /* value of your choice which suits your alignment */
 }
 
-td {
+td,th {
     text-align: center;
     vertical-align: middle;
 }

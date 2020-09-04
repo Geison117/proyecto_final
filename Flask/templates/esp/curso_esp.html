@@ -1,16 +1,33 @@
 {%extends 'layout.html'%}
-
+{%block source%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
+{%endblock%}
 {% block body %}
 
 {%  if cursos |length >0 : %}
-    <table>
-    {% for curso in cursos %}
+<div class="center_div">
+    <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
+    <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
+        <h2> {{especializacion[0][1]}} </h2>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Curso</th>
+                <th>Institucion</th>
+                <th>Horas Teóricas</th>
+                <th>Horas Prácticas</th>
+                <th>Calificación</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+    {% for curso in cursos %} 
         <tr>
         <td>
-            {{curso.2}}
+            {{curso.3}}
         </td>
         <td>
-            {{curso.3}}
+            {{curso.0}}
         </td>
         <td>
             {{curso.4}}
@@ -18,13 +35,27 @@
         <td>
             {{curso.5}}
         </td>
+        <td>
+            {{curso.6}}
+        </td>
+        <td>
+           <a class="btn btn-danger" href="/eliminar_curso/{{especializacion[0][0]}}/{{curso[1]}}">Quitar curso</a>
+        </td>
         </tr>
-
+ 
     {% endfor %}
     </table>
+</div>
 {% else %}
-    <h1>No hay cursos inscritos en la espepecializacion</h1>
+<div class="center_div mt-3" id="head">
+    <h1>No hay cursos para esta especializacion</h1>
+</div>
+<div class="center_div mb-4">
+    <img class= 'rounded mx-auto d-block' src="{{ url_for('static', filename='images/decepcion.jpg') }}" alt="">
+</div>
 {% endif %}
-
- <a href="/ins_curso/{{especializacion[0][0]}}" class="btn btn-primary">Inscribir nuevo curso</a>
+<div class="row center_div ">
+ <a href="/ins_curso/{{especializacion[0][0]}}" class="btn btn-primary mr-2">Inscribir nuevo curso</a>
+ <a href="/especializacion" class="btn btn-outline-secondary">Volver</a>
+</div>
  {%endblock%}

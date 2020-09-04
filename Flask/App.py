@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
+app.config['MYSQL_USER']='usuario'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -455,12 +455,13 @@ def elimesp(id):
 @app.route('/ver_cur/<id>')
 def curesp(id):
     cur = mysql.connection.cursor()
-    cur.execute('	SELECT c.* FROM especializacion_curso ec, curso c, especializacion e'\
-	' WHERE ec.id_especializacion=e.id_especializacion'\
-	' AND ec.id_curso=c.id_curso'\
-	' AND e.id_especializacion =%s;',(id))
+    cur.execute('''	SELECT i.nombre,c.* FROM especializacion_curso ec, curso c, especializacion e, institucion i
+	WHERE ec.id_especializacion=e.id_especializacion
+	AND ec.id_curso=c.id_curso
+    AND i.id_institucion=c.id_institucion
+	AND e.id_especializacion =%s;''',(id))
     cursosEspecializacion = cur.fetchall()
-    cur.execute('''SELECT id_especializacion FROM especializacion WHERE id_especializacion=%s''',(id))
+    cur.execute('''SELECT id_especializacion,nombre FROM especializacion WHERE id_especializacion=%s''',(id))
     especializacion = cur.fetchall()
     return render_template('esp/curso_esp.html', cursos = cursosEspecializacion, especializacion = especializacion)
 
@@ -475,10 +476,11 @@ def curso_esp(id):
     else:
         idplan = 1
     idplan = str(idplan)
-    cur.execute('SELECT id_especializacion FROM especializacion WHERE id_especializacion = %s',(id))
+    cur.execute('SELECT id_especializacion,nombre FROM especializacion WHERE id_especializacion = %s',(id))
     especializacion = cur.fetchall()
-    cur.execute('''SELECT c.* FROM plan_curso pc,curso c
+    cur.execute('''SELECT i.nombre,c.* FROM plan_curso pc,curso c,institucion i
 	WHERE pc.id_curso=c.id_curso
+    AND i.id_institucion=c.id_institucion
 	AND pc.id_plan = %s
 	AND c.id_curso NOT IN 
 	(SELECT id_curso FROM especializacion_curso
@@ -494,6 +496,16 @@ def ins_curEsp(ide,idc):
     mysql.connection.commit()
     return redirect(url_for('curesp',id=ide))
 
+@app.route('/eliminar_curso/<ide>/<idc>')
+def eliminar_curso(ide,idc):
+    cur = mysql.connection.cursor()
+    cur.execute('''DELETE FROM especializacion_curso 
+    WHERE id_especializacion = %s
+    AND id_curso= %s''',(ide,idc))
+    mysql.connection.commit()
+    return redirect(url_for('curesp',id=ide))
+
+
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    app.run(port=3100, debug=True)

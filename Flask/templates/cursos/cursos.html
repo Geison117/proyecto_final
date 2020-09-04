@@ -21,7 +21,7 @@
         <th>clases teoricas</th>
         <th>clases practicas</th>
         <th>calificacion</th>
-        <th>Opciones</th>
+        <td colspan="2">Opciones</td>
        
     </tr>
 </thead>
@@ -33,18 +33,18 @@
         <td>{{curso.4}}</td>
         <td>{{curso.5}}</td>
         <td>{{curso.6}}</td>  
-        <td> <a href="/edit_cur/{{curso.1}}">EDITAR</a> <br> 
-            <a class="confirm">ELIMINAR</a></td>  
+        <td> <a href="/edit_cur/{{curso.1}}" class="btn btn-warning text-white">Editar</a> 
+            <a class="confirm btn btn-danger">Eliminar</a></td>  
     </tr>
 {% endfor %}
 </tbody>
 </table>
 
 
-<div class="row">
-<a href="/add_curso" class="btn btn-primary">Agregar curso</a>
-<a href="/" class="btn btn-outline-primary">Volver</a>
-</div>
+
+<a href="/add_curso" class="btn btn-primary mr-2">Agregar curso</a>
+<a href="/" class="btn btn-outline-secondary">Volver</a>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 

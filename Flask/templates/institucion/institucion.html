@@ -26,9 +26,7 @@
         <th>
             Tipo
         </th>
-        <th>
-            Opciones
-        </th>
+        <th colspan="2">Opciones</th>
     </tr>
 </thead>
 <tbody>
@@ -47,23 +45,24 @@
             {{institucion.4}}
         </td>
         <td>
-            <a href="/edit_ins//{{institucion.0}}">EDITAR</a> <br>
-            <a class="confirm">ELIMINAR</a>
+            <a href="/edit_ins//{{institucion.0}}" class="btn btn-warning mr-2 text-white">Editar</a>
+            <a class="confirm btn btn-danger">Eliminar</a>
         </td>
+
     </tr>
     {%endfor%}
 </tbody>
 </table>
 
 <form action="/add_institucion">
-    <div class="row">
+   
 
     
-<button class="btn btn-primary" type="submit">
+<button class="btn btn-primary mr-2" type="submit">
 Nuevo convenio
 </button>
-<a href="/" class="btn btn-outline-primary">Volver</a>
-</div>
+<a href="/" class="btn btn-outline-secondary">Volver</a>
+
 </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
