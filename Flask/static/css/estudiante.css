@@ -12,7 +12,9 @@
     font: bold;
     color: white;
     padding: 2%;
-    border-radius: .8em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-radius: 10px;
 }
 
 

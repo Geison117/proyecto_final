@@ -19,7 +19,7 @@
 }
 li, a {
     margin: 75px 0 -55px 0;
-    color: white;
+    color: #03A9F4;
     font: 14pt "Roboto", sans-serif;
     font-weight: 700;
     line-height: 1.8;
@@ -28,6 +28,7 @@ li, a {
     list-style: none;
     outline: 0;
     display: none;
+    font-size: xx-large;
 }
 li {
     width: 230px;
@@ -35,8 +36,9 @@ li {
 a:focus {
     display: block;
     color: #333;
-    background-color: #eee;
+    background-color: white;
     transition: all .5s;
+    text-decoration-style: none;
 }
 aside {
     position: absolute;

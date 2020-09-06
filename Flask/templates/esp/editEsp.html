@@ -1,7 +1,12 @@
 {%extends 'layout.html'%}
+
+{%block source%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estudiante.css') }}">
+{%endblock%}
+
 {% block body %}
 <div class="container">
-    <div class="py-5 text-center">
+    <div class="py-4 text-center col-md-10 center_div" id="head">
       <h2>Especialización</h2>
       <p class="lead">
             Edite los campos necesarios de la especialización, si desea cambiar la 
@@ -12,7 +17,6 @@
     <div class="row">
     
       <div class="col-md-10 col-offset-6 center_div">
-        <h4 class="mb-3">Edición</h4>
         <form class="needs-validation" action="/update_esp/{{esp.0}}" method="POST">
 
             <div class="mb-3">
@@ -20,15 +24,18 @@
               <input value="{{esp.1}}" type="text" class="form-control" id="nombre" name="nom" maxlength="100" required>
             </div>
 
-        
-          <div class="mb-3">
-              <label for="email">Nivel de dificultad</label>
-              <input value="{{esp.3}}" name="level" type="number" class="form-control" id="email" min="0">
-            </div>
-
             <div class="mb-3">
                 <label for="email">Calificación</label>
                 <input value="{{esp.2}}" name="cal" type="number" step="0.1" class="form-control" id="email" min="0" max="5">  
+          </div>
+          <div class="mb-3">
+            <label for="email">Nivel de dificultad</label>
+            <select class="custom-select d-block w-100" id="country" required="" name="level">
+              <option value="" disabled selected>Seleccione..</option>
+              <option>Fácil</option>
+              <option>Medio</option>
+              <option>Difícil</option>
+            </select>
           </div>
 
           <hr class="mb-4">
