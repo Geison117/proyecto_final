@@ -369,8 +369,8 @@ def inscur(id):
 @app.route('/ins_cur/<ide>/<idc>')
 def ins_cur(ide,idc):
     cur = mysql.connection.cursor()
-    cur.execute('''INSERT INTO estudiante_curso (id_estudiante,id_curso,fec_fin,fec_inicio,Aprobado)
-     VALUES (%s,%s,'2030-08-25',DATE(NOW()),0)  ''',(ide,idc))
+    cur.execute('''INSERT INTO estudiante_curso (id_estudiante,id_curso)
+     VALUES (%s,%s)  ''',(ide,idc))
     mysql.connection.commit()
     
     return redirect(url_for('ver_cursos',id=ide))
@@ -400,8 +400,8 @@ def insesp(id):
 @app.route('/ins_esp/<ide>/<ides>')
 def ins_esp(ide,ides):
     cur = mysql.connection.cursor()
-    cur.execute('''INSERT INTO estudiante_especializacion (id_estudiante,id_especializacion,estado)
-     VALUES (%s,%s,'En curso')  ''',(ide,ides))
+    cur.execute('''INSERT INTO estudiante_especializacion (id_estudiante,id_especializacion)
+     VALUES (%s,%s)  ''',(ide,ides))
     mysql.connection.commit()
     
     return redirect(url_for('ver_especializaciones',id=ide))
@@ -542,4 +542,4 @@ def eliminar_curso(ide,idc):
 
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    app.run(port=7200, debug=True)

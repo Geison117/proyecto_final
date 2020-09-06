@@ -99,7 +99,6 @@ CREATE TABLE curso_categoria
 CREATE TABLE estudiante_especializacion(
 id_estudiante INT NOT NULL,
 id_especializacion INT NOT NULL,
-estado VARCHAR(50) NOT NULL,
 PRIMARY KEY(id_estudiante,id_especializacion),
 FOREIGN KEY (id_estudiante) REFERENCES estudiante(id_estudiante),
 FOREIGN KEY (id_especializacion) REFERENCES especializacion(id_especializacion)
@@ -108,9 +107,6 @@ FOREIGN KEY (id_especializacion) REFERENCES especializacion(id_especializacion)
 CREATE TABLE estudiante_curso(
 id_estudiante INT NOT NULL,
 id_curso INT NOT NULL,
-fec_fin DATE NOT NULL,
-fec_inicio DATE NOT NULL,
-Aprobado BOOLean NOT NULL,
 PRIMARY KEY (id_estudiante,id_curso),
 FOREIGN KEY (id_estudiante) REFERENCES estudiante(id_estudiante),
 FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
@@ -136,3 +132,4 @@ FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 INSERT INTO plan (nombre,precio) VALUES('Gratis',0),('Premium',10000);
 
 INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),('Ciencia'),('Deportes'),('Tecnología'),('Matematicas'); 
+
