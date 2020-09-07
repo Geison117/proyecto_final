@@ -16,11 +16,12 @@
 <table class="table table-hover">
     <thead>
     <tr>
+        <th>Nombre</th>
         <th>Institucion</th>
-        <th>nombre</th>
-        <th>clases teoricas</th>
-        <th>clases practicas</th>
-        <th>calificacion</th>
+        <th>Clases Teoricas</th>
+        <th>Clases Practicas</th>
+        <th>Calificacion</th>
+        <th>Plan</th>
         <td colspan="2">Opciones</td>
        
     </tr>
@@ -30,11 +31,13 @@
     {%  if cursos |length >0 : %}
         {% for curso in cursos %}
     <tr>
-      <td>{{curso.0}}</td>
-        <td>{{curso.3}}</td>
+      <td>{{curso.3}}</td>
+        <td>{{curso.0}}</td>
         <td>{{curso.4}}</td>
         <td>{{curso.5}}</td>
-        <td>{{curso.6}}</td>  
+        <td>{{curso.6}}</td> 
+        <td>{{curso.7}}</td>  
+
         <td> <a href="/edit_cur/{{curso.1}}" class="btn btn-warning text-white">Editar</a> 
             <a class="confirm btn btn-danger">Eliminar</a></td>  
     </tr>

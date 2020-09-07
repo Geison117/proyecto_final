@@ -16,22 +16,23 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>Institucion</th>
         <th>Nombre</th>
+        <th>Institución</th>
         <th>Nivel de Dificultad</th>
         <th>Calificación</th>
+        <th>Plan</th>
         <th colspan="4">Opciones</th>
-       
     </tr>
 </thead>
 <tbody>
     {%  if especializaciones |length >0 : %}
         {% for esp in especializaciones %}
     <tr>
-      <td>{{esp.0}}</td>
-        <td>{{esp.2}}</td>
+      <td>{{esp.2}}</td>
+        <td>{{esp.0}}</td>
         <td>{{esp.4}}</td>
         <td>{{esp.3}}</td> 
+        <td>{{esp.6}}</td> 
         <td> <a href="/edit_esp/{{esp.1}}" class="btn btn-warning text-white">Editar</a> 
             <a class="confirm btn btn-danger" >Eliminar</a> 
             <a href="/ver_cur/{{esp.1}}" class="btn btn btn-info">Ver cursos</a>
