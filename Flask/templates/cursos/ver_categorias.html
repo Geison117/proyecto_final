@@ -9,7 +9,7 @@
 <div class="my-3 p-3 center_div bg-white rounded box-shadow" >
     <img class="float-xs-right" src="{{ url_for('static', filename='logo/logo2.jpeg') }}" alt="">
     <div id="div" class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded box-shadow float-xs-left">
-        <h2> Categorias del curso  {{curso.1}}</h2>
+        <h2> Categorias del curso  {{curso[0][1]}}</h2>
     </div>
     <table class="table table-hover ">
 

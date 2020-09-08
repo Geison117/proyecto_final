@@ -217,7 +217,7 @@ def cat(id):
     join categoria cat on cat.id_categoria = cc.id_categoria
     WHERE c.id_curso = %s''',[id])
     curso = cur.fetchall()
-    return render_template('cursos/ver_categorias.html', curso = curso[0])    
+    return render_template('cursos/ver_categorias.html', curso = curso)    
 
 
 @app.route('/update_cur/<id>', methods = ['POST'])
