@@ -1,7 +1,7 @@
 {%extends 'layout.html'%}
 
 {%block source%}
-    {%  if especializaciones |length >0 : %}
+    {%  if cursos |length >0 : %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla.css') }}">
     {% else %}   
         <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_cursos.css') }}">

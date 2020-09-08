@@ -208,6 +208,18 @@ def editcur(id):
     curso = cur.fetchall()
     return render_template('cursos/editCurso.html', curso = curso[0])
 
+
+@app.route('/ver_categoria/<id>')
+def cat(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT cat.nombre, c.nombre
+    FROM curso_categoria cc join curso c ON c.id_curso = cc.id_curso 
+    join categoria cat on cat.id_categoria = cc.id_categoria
+    WHERE c.id_curso = %s''',[id])
+    curso = cur.fetchall()
+    return render_template('cursos/ver_categorias.html', curso = curso[0])    
+
+
 @app.route('/update_cur/<id>', methods = ['POST'])
 def updatecur(id):
     if request.method == 'POST': 
@@ -224,8 +236,8 @@ def updatecur(id):
         mysql.connection.commit()
         return redirect(url_for('curhtml'))
 
-#RUTAS PARA ESTUDIANTE
 
+#RUTAS PARA ESTUDIANTE
 
 @app.route('/estudiante')
 def esthtml():
@@ -554,7 +566,6 @@ def eliminar_curso(ide,idc):
     AND id_curso= %s''',[ide,idc])
     mysql.connection.commit()
     return redirect(url_for('curesp',id=ide))
-
 
 
 if __name__ == '__main__':

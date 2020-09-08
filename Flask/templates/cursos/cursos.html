@@ -22,7 +22,7 @@
         <th>Clases Practicas</th>
         <th>Calificacion</th>
         <th>Plan</th>
-        <td colspan="2">Opciones</td>
+        <td colspan="3">Opciones</td>
        
     </tr>
 </thead>
@@ -38,8 +38,16 @@
         <td>{{curso.6}}</td> 
         <td>{{curso.7}}</td>  
 
-        <td> <a href="/edit_cur/{{curso.1}}" class="btn btn-warning text-white">Editar</a> 
-            <a class="confirm btn btn-danger">Eliminar</a></td>  
+        <td> 
+            <a href="/ver_categoria/{{curso.1}}"><button  class="btn btn-info text-white">Categorías</button></a>  
+        </td>
+        <td> 
+            <a href="/edit_cur/{{curso.1}}"><button  class="btn btn-warning text-white">Editar</button></a>  
+        </td>
+        
+        <td>
+            <a><button  class="confirm btn btn-danger">Eliminar</button></a>
+        </td>
     </tr>
         {% endfor %}
 
