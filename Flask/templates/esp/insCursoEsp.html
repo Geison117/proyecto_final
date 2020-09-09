@@ -20,29 +20,34 @@
                 <th>Opciones</th>
             </tr>
         </thead>
-{% for curso in cursos %}
+        {%  if cursos |length >0 : %}
+            {% for curso in cursos %}
 
 <tr>
     <td>
-        {{curso.3}}
+                {{curso.3}}
     </td>
     <td>
-        {{curso.0}}
+                {{curso.0}}
     </td>
     <td>
-        {{curso.4}}
+                {{curso.4}}
     </td>
     <td>
-        {{curso.5}}
+                {{curso.5}}
     </td>
     <td>
-        {{curso.6}}
+                {{curso.6}}
     </td>
     <td>
         <a href="/ins_curEsp/{{especializacion[0][0]}}/{{curso.1}}"><button class="btn btn-success">Inscribir</button></a>
     </td>
 </tr>
-{% endfor %}
+        {% endfor %}
+        {% else %}
+<td colspan="5"><h1>No hay cursos disponibles para esta especializacion</h1></td>
+        {% endif %}
+
 </table>
 </div>
 <div class="center_div">

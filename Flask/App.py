@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='usuario'
+app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -539,7 +539,7 @@ def curso_esp(id):
         (SELECT id_curso FROM especializacion_curso
         WHERE id_especializacion = %s)''',[idplan,id, id])
     else:
-       cur.execute('''SELECT i.nombre,c.* FROM plan_curso pc,curso c,institucion i
+       cur.execute('''SELECT DISTINCT i.nombre,c.* FROM plan_curso pc,curso c,institucion i
         WHERE pc.id_curso=c.id_curso
         AND i.id_institucion=c.id_institucion
         AND c.id_institucion = (Select id_institucion from especializacion where id_especializacion = %s)    
@@ -569,4 +569,4 @@ def eliminar_curso(ide,idc):
 
 
 if __name__ == '__main__':
-    app.run(port=6900, debug=True)
+    app.run(port=2000, debug=True)
