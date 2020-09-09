@@ -131,7 +131,23 @@ FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 
 INSERT INTO plan (nombre,precio) VALUES('Gratis',0),('Premium',10000);
 
-INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),('Ciencia'),('Deportes'),('Tecnología'),('Matematicas'); 
+INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),
+													('Ciencia'),
+													('Deportes'),
+													('Tecnología'),
+													('Matematicas')
+													
+INSERT INTO categoria (nombre) VALUES ('Economia'),
+												  ('Fisica'),
+												  ('Quimica'),
+												  ('Cine y televisión'),
+												  ('Producción audiovisual'),
+												  ('Desarrollo de Software'),
+												  ('Emprendimiento y Marketing digital'),
+												  ('Inteligencia Artificial'),
+												  ('Desarrollo de videojuegos'),
+												  ('Filosofia'),
+												  ('Gastronomia'); 
 
 SELECT i.nombre,e.*, p.nombre FROM especializacion e join institucion i on i.id_institucion=e.id_institucion
     join plan_especializacion pc on e.id_especializacion = pc.id_especializacion join plan p on p.id_plan = pc.id_plan

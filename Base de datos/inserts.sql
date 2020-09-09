@@ -3,7 +3,7 @@ VALUES(1, 'James', 'Smith', 'JaSi412', '1994-01-01', 'Colombia', 1),
 		(2, 'Emma', 'Jhonson', 'EmJh657', '1995-02-02', 'Canadá', 1),
 		(3, 'Alexander', 'Smirnov', 'Alex456', '1996-03-03', 'USA', 1),
 		(4, 'Anastasia', 'Ivanova', 'Ana2482', '1997-04-04', 'México', 1),
-		(5, 'Li', 'Wei', 'Li684', '1998-05-05', 'Inglaterra', 1),
+		(5, 'Li', 'Wei', 'Li684', '1998-05-05', 'Inglaterra', 1);
 		(6, 'Wang', 'Fang', 'Wf784', '1999-06-06', 'España', 2),
 		(7, 'Ben', 'Muller', 'Ben10', '2000-07-07', 'Argentina', 2),
 		(8, 'Emma', 'Schmidt', 'Ema1496', '2001-08-08', 'Francia', 2),		
@@ -116,3 +116,5 @@ VALUES (1, 2),
 		 (14, 3),				 
 		 (14, 4),
 		 (14, 5);
+		 
+		 
