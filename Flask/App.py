@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 #Mysql Connection
 app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
+app.config['MYSQL_USER']='usuario'
 app.config['MYSQL_PASSWORD']='1234'
 app.config['MYSQL_DB']='proyecto'
 mysql = MySQL(app)
@@ -49,6 +49,7 @@ def editins(id):
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM institucion WHERE id_institucion = %s',[id])
     ins = cur.fetchall()
+    print(ins)
     return render_template('institucion/editinstitucion.html', institucion = ins[0])
 
 @app.route('/update_ins/<id>', methods = ['POST'])
@@ -120,9 +121,10 @@ def elimins(id):
 @app.route('/cursos')
 def curhtml():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT i.nombre,c.*, p.nombre 
+    cur.execute('''SELECT i.nombre,c.*, p.nombre
     FROM (curso c join institucion i on i.id_institucion=c.id_institucion) 
     join plan_curso pc on c.id_curso = pc.id_curso join plan p on p.id_plan = pc.id_plan
+    GROUP BY c.id_curso
     order by i.id_institucion''')
     data = cur.fetchall()
     return render_template('cursos/cursos.html',cursos = data)
@@ -429,6 +431,7 @@ def esp():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT i.nombre,e.*, p.nombre FROM especializacion e join institucion i on i.id_institucion=e.id_institucion
     join plan_especializacion pc on e.id_especializacion = pc.id_especializacion join plan p on p.id_plan = pc.id_plan
+    GROUP BY e.id_especializacion
     order by i.id_institucion''')
     info = cur.fetchall()
     return render_template('esp/especializacion.html', especializaciones = info)
@@ -569,4 +572,4 @@ def eliminar_curso(ide,idc):
 
 
 if __name__ == '__main__':
-    app.run(port=2000, debug=True)
+    app.run(port=2900, debug=True)

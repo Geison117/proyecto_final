@@ -133,3 +133,8 @@ INSERT INTO plan (nombre,precio) VALUES('Gratis',0),('Premium',10000);
 
 INSERT INTO categoria (nombre) VALUES ('Artes y Humanidades'),('Ciencia'),('Deportes'),('Tecnología'),('Matematicas'); 
 
+SELECT i.nombre,e.*, p.nombre FROM especializacion e join institucion i on i.id_institucion=e.id_institucion
+    join plan_especializacion pc on e.id_especializacion = pc.id_especializacion join plan p on p.id_plan = pc.id_plan
+    GROUP BY e.id_especializacion
+    order by i.id_institucion
+    

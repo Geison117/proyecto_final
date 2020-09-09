@@ -13,16 +13,16 @@
         <h1> Cursos</h1>
     </div>
 
-<table class="table table-hover">
+<table class="table table-hover" style="width: 110%;">
     <thead>
     <tr>
-        <th>Nombre</th>
+        <th style="width: 250px;">Nombre</th>
         <th>Institucion</th>
         <th>Clases Teoricas</th>
         <th>Clases Practicas</th>
         <th>Calificacion</th>
         <th>Plan</th>
-        <td colspan="3">Opciones</td>
+        <th style="width: 300px;">Opciones</th>
        
     </tr>
 </thead>
@@ -38,15 +38,10 @@
         <td>{{curso.6}}</td> 
         <td>{{curso.7}}</td>  
 
-        <td colspan="3">
-            <a href="/ver_categoria/{{curso.1}}"><button  class="btn btn-info text-white" class="mr-4">Categorías</button></a>  
-        
-        
-            <a href="/edit_cur/{{curso.1}}"><button  class="btn btn-warning text-white" class="mr-4">Editar</button></a>  
-        
-        
-        
-            <a><button  class="confirm btn btn-danger">Eliminar</button></a>
+        <td>
+            <a href="/ver_categoria/{{curso.1}}" class="btn btn-info text-white mr-2">Categorías</a>  
+            <a href="/edit_cur/{{curso.1}}" class="btn btn-warning text-white mr-2"> Editar</a>  
+            <a  class="confirm btn btn-danger">Eliminar</a>
         </td>
     </tr>
         {% endfor %}
