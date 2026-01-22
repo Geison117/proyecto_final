@@ -146,17 +146,3 @@ python app.py
 http://localhost:2900
 ```
 
----
-
-## 👨‍💻 Author
-
-**Geison Blanco**
-Software Engineer
-Academic project developed using Flask and MySQL
-
----
-
-## 📄 License
-
-This project is intended for educational purposes.
-You may add a license if you plan to distribute or reuse it.
